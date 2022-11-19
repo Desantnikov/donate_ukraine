@@ -1,0 +1,31 @@
+version: '3'
+services:
+  db:
+    image: 'postgres:latest'
+    expose:
+      - "5432"
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    environment:
+      - PGUSER=postgres
+      - PGPASSWORD=postgres
+      - PGDATABASE=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+  donate_ukraine:
+#    restart: always
+    ports:
+      - "8000:8000"
+    build: .
+    depends_on:
+      - db
+    links:
+      - db:db
+
+    volumes:
+      - .:/code
+#    command:
+#      - python
+#    networks:
+#      - main-network

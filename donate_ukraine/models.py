@@ -11,8 +11,8 @@ class Lot(models.Model):
     creator = models.ForeignKey(User, models.PROTECT)
 
     description = models.CharField(max_length=512, default='')
-    photos = models.CharField(max_length=100, default='')
+    photos = ArrayField(models.ImageField(), default=list)
     requisites = models.CharField(max_length=512, default='')
 
     report_text = models.CharField(max_length=512, default='')
-    report_images = models.CharField(max_length=100, default='')
+    report_images = ArrayField(models.ImageField(), default=list)

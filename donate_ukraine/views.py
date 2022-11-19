@@ -20,6 +20,18 @@ class LotList(APIView):
     # permission_classes = [permissions.IsAdminUser]
 
     def get(self, request):
-        lots = Lot.objects.all()
-        serializer = LotSerializer(lots, many=True)
-        return Response(serializer.data)
+        # lots = Lot.objects.all()
+        # lots = Lot.objects.all()
+        # lots = Lot.objects.all()
+        # serializer = LotSerializer(lots, many=True)
+        # return Response(serializer.data)
+        return Response(
+            {
+                'creator': 'ochko',
+                'description': 'description',
+                'photos': 'fuck you',
+                'requisites': 'and fuck you one more time',
+                'report_text': 'and again',
+                'report_images': 'fuck off'
+            }
+        )
