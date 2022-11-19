@@ -3,22 +3,20 @@
 from django.db import migrations
 
 
-
 def forward(apps, schema_editor) -> None:
     User = apps.get_model("donate_ukraine", "User")
     Lot = apps.get_model("donate_ukraine", "Lot")
 
-    user = User(email='admin@gmail.com')
+    user = User(email="admin@gmail.com")
 
     lot = Lot(
         creator=user,
-        description='sample description',
-        requisites=['card number', 'second card number'],
+        description="sample description",
+        requisites=["card number", "second card number"],
     )
 
     user.save()
     lot.save()
-
 
 
 class Migration(migrations.Migration):

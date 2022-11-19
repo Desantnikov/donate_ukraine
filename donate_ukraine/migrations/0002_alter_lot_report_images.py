@@ -7,13 +7,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('donate_ukraine', '0001_initial'),
+        ("donate_ukraine", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='lot',
-            name='report_images',
-            field=django.contrib.postgres.fields.ArrayField(base_field=models.ImageField(upload_to=''), default=list, size=None),
+            model_name="lot",
+            name="report_images",
+            field=django.contrib.postgres.fields.ArrayField(
+                base_field=models.ImageField(upload_to=""), default=list, size=None
+            ),
         ),
     ]

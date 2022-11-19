@@ -6,6 +6,7 @@ services:
       - "5432"
     volumes:
       - ./postgres-data:/var/lib/postgresql/data
+    user: "${UID}:${GID}"
     environment:
       - PGUSER=postgres
       - PGPASSWORD=postgres
@@ -25,7 +26,3 @@ services:
 
     volumes:
       - .:/code
-#    command:
-#      - python
-#    networks:
-#      - main-network

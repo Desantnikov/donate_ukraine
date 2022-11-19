@@ -15,12 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from django.urls import include, re_path
 
 from donate_ukraine import views
 
-
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('lots/', views.LotList.as_view())
+    path("admin/", admin.site.urls),
+    path("lots/", views.LotList.as_view()),
+    path("lots/<int:pk>", views.LotDetails.as_view()),
 ]
