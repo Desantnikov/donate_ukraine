@@ -13,3 +13,11 @@ class LotViewSet(AuthenticationMixin, GenericViewSet, ListCreateRetrieveUpdateMi
 class UserViewSet(AuthenticationMixin, GenericViewSet, ListCreateRetrieveUpdateMixin):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+
+class UserTokenViewSet(AuthenticationMixin, GenericViewSet, ListCreateRetrieveUpdateMixin):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+    def get_object(self):
+        return User.objects.first()

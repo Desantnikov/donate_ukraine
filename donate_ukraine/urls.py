@@ -1,9 +1,9 @@
 from dj_rest_auth.registration.views import RegisterView
 from dj_rest_auth.views import LoginView, LogoutView
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 
-from donate_ukraine.instances import LotViewSet, UserViewSet
+from donate_ukraine.views import LotViewSet, UserViewSet, UserTokenViewSet
 
 
 LIST_VIEWSET_MAPPING = {"get": "list", "post": "create"}
@@ -19,4 +19,5 @@ urlpatterns = [
     path("lots/<int:pk>", LotViewSet.as_view(DETAILS_VIEWSET_MAPPING)),
     path("users/", UserViewSet.as_view(LIST_VIEWSET_MAPPING)),
     path("users/<int:pk>", UserViewSet.as_view(DETAILS_VIEWSET_MAPPING)),
+    re_path(r"users/info/.*", UserTokenViewSet.as_view({"get": "retrieve"})),  # get user by token
 ]
