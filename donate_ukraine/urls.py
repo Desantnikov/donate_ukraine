@@ -1,25 +1,17 @@
-"""donate_ukraine URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/4.1/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
 from django.urls import path
 
-from donate_ukraine import views
+from donate_ukraine.views import LotViewSet, UserViewSet
+
+
+LIST_VIEWSET_MAPPING = {"get": "list", "post": "create"}
+DETAILS_VIEWSET_MAPPING = {"get": "retrieve", "put": "update"}
+
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("lots/", views.LotList.as_view()),
-    path("lots/<int:pk>", views.LotDetails.as_view()),
+    path("lots/", LotViewSet.as_view(LIST_VIEWSET_MAPPING)),
+    path("lots/<int:pk>", LotViewSet.as_view(DETAILS_VIEWSET_MAPPING)),
+    path("users/", UserViewSet.as_view(LIST_VIEWSET_MAPPING)),
+    path("users/<int:pk>", UserViewSet.as_view(DETAILS_VIEWSET_MAPPING)),
 ]
