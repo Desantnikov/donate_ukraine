@@ -2,7 +2,7 @@ from rest_framework.viewsets import GenericViewSet
 
 from donate_ukraine.mixins.views import AuthenticationMixin, ListCreateRetrieveUpdateMixin
 from donate_ukraine.models import Lot, User
-from donate_ukraine.serializers.instances import LotSerializer, UserSerializer
+from donate_ukraine.serializers import LotSerializer, UserSerializer
 
 
 class LotViewSet(AuthenticationMixin, GenericViewSet, ListCreateRetrieveUpdateMixin):

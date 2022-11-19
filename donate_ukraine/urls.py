@@ -3,7 +3,7 @@ from dj_rest_auth.views import LoginView, LogoutView
 from django.contrib import admin
 from django.urls import path
 
-from donate_ukraine.views.instances import LotViewSet, UserViewSet
+from donate_ukraine.instances import LotViewSet, UserViewSet
 
 
 LIST_VIEWSET_MAPPING = {"get": "list", "post": "create"}
