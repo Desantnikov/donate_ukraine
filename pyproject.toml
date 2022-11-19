@@ -1,7 +1,17 @@
 [tool.black]
-exclude = 'migrations'
+line-length = 120
+target_version = ['py38']
+
+[tool.isort]
+profile="black"
+overwrite_in_place = true
+indent = 4
+combine_star = true
+combine_as_imports = true
+line_length = 120
+lines_after_imports = 2
+known_django = ['django']
 
 [tool.flake8]
 exclude = '.git,__pycache__,postgres-data,migrations'
 max-line-length = 120
-

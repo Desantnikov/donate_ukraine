@@ -12,6 +12,9 @@ psycopg2 = "*"
 psycopg-binary = "*"
 ipython = "*"
 django-cors-headers = "*"
+dj-rest-auth = "*"
+django-allauth = "*"
+djangorestframework-simplejwt = "*"
 
 [dev-packages]
 black = "*"
