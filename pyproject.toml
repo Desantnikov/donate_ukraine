@@ -1,0 +1,7 @@
+[tool.black]
+exclude = 'migrations'
+
+[tool.flake8]
+exclude = '.git,__pycache__,postgres-data,migrations'
+max-line-length = 120
+

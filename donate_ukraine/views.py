@@ -9,6 +9,6 @@ class LotList(ListCreateAPIView):
     serializer_class = LotSerializer
 
 
-class LotDetails(RetrieveUpdateDestroyAPIView):
+class LotDetails(RetrieveUpdateDestroyAPIView): #  dddddddddddddddddddddddddddddddddddddddddddddddddddddddeeeeeeeeeee
     queryset = Lot.objects.all()
     serializer_class = LotSerializer
