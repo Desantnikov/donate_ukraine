@@ -12,7 +12,7 @@ class Lot(models.Model):
 
     description = models.CharField(max_length=512, default='')
     photos = ArrayField(models.ImageField(), default=list)
-    requisites = models.CharField(max_length=512, default='')
+    requisites = ArrayField(models.CharField(max_length=512, default=''), default=list)
 
     report_text = models.CharField(max_length=512, default='')
     report_images = ArrayField(models.ImageField(), default=list)

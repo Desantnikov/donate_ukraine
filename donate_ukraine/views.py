@@ -3,13 +3,15 @@ from rest_framework.response import Response
 from rest_framework import authentication, permissions
 from django.contrib.auth.models import User
 from rest_framework.routers import DefaultRouter
+from rest_framework.generics import GenericAPIView
+from rest_framework.mixins import RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin
 from donate_ukraine.serializers import LotSerializer
 
 
 from donate_ukraine.models import Lot
 
 
-class LotList(APIView):
+class LotList(RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin, GenericAPIView):
     """
     View to list all users in the system.
 
@@ -20,18 +22,7 @@ class LotList(APIView):
     # permission_classes = [permissions.IsAdminUser]
 
     def get(self, request):
-        # lots = Lot.objects.all()
-        # lots = Lot.objects.all()
-        # lots = Lot.objects.all()
-        # serializer = LotSerializer(lots, many=True)
-        # return Response(serializer.data)
-        return Response(
-            {
-                'creator': 'ochko',
-                'description': 'description',
-                'photos': 'fuck you',
-                'requisites': 'and fuck you one more time',
-                'report_text': 'and again',
-                'report_images': 'fuck off'
-            }
-        )
+        lots = Lot.objects.all()
+
+        serializer = LotSerializer(lots, many=True)
+        return Response(serializer.data)
