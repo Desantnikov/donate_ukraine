@@ -1,4 +1,5 @@
 from pathlib import Path
+from datetime import timedelta
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -21,11 +22,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "corsheaders",
-    "dj_rest_auth",
     "django.contrib.sites",
-    "allauth",
-    "allauth.account",
-    "dj_rest_auth.registration",
     "donate_ukraine",
 ]
 
@@ -96,21 +93,15 @@ AUTH_PASSWORD_VALIDATORS = [
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        "dj_rest_auth.jwt_auth.JWTCookieAuthentication",
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
 }
-SITE_ID = 1
-REST_USE_JWT = True
-JWT_AUTH_COOKIE = "my-app-auth"
 
 AUTHENTICATION_BACKENDS = [
-    "allauth.account.auth_backends.AuthenticationBackend",
     "django.contrib.auth.backends.ModelBackend",
 ]
 
 ACCOUNT_AUTHENTICATION_METHOD = "username"
-# ACCOUNT_EMAIL_REQUIRED = True
-# ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 
@@ -144,3 +135,10 @@ AUTH_USER_MODEL = "donate_ukraine.User"
 CORS_ALLOW_ALL_ORIGINS = True
 
 APPEND_SLASH = True
+
+
+SIMPLE_JWT = {
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=15),
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
+    "ROTATE_REFRESH_TOKENS": True,
+}
