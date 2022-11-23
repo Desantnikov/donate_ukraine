@@ -14,6 +14,8 @@ migrations:
 migrate:
 	docker-compose exec donate_ukraine /code/manage.py migrate
 	docker-compose exec donate_ukraine /code/manage.py migrate donate_ukraine
+	# Works for Windows:
+	# docker-compose exec donate_ukraine python manage.py migrate
 
 drop-db:
 	docker-compose exec donate_ukraine /code/manage.py flush
