@@ -13,9 +13,9 @@ DETAILS_VIEWSET_MAPPING = {"get": "retrieve", "put": "update"}
 urlpatterns = [
     path("admin/", admin.site.urls),
     # send 'username' and 'password', receive 'access' and 'refresh' tokens
-    path("token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("login", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     # send 'refresh', receive 'access'
-    path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+    path("login/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("lots/", LotViewSet.as_view(LIST_VIEWSET_MAPPING)),
     path("lots/<int:pk>", LotViewSet.as_view(DETAILS_VIEWSET_MAPPING)),
     path("users/", UserViewSet.as_view(LIST_VIEWSET_MAPPING)),
