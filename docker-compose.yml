@@ -6,7 +6,6 @@ services:
       - "5432"
     volumes:
       - ./postgres-data:/var/lib/postgresql/data
-    user: "673872659"
     environment:
       - PGUSER=postgres
       - PGPASSWORD=postgres
@@ -14,6 +13,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=postgres
+
   donate_ukraine:
     restart: always
     ports:
@@ -25,3 +25,18 @@ services:
       - db:db
     volumes:
       - .:/code
+
+  app:
+    build: ./donate-ua-frontend
+    container_name: donate-ua-frontend
+    restart: always
+    ports:
+      - '3000:3000'
+    command: 'yarn start'
+
+  nginx:
+    build: ./donate-ua-frontend/nginx
+    ports:
+      - '80:80'
+    depends_on:
+      - app
