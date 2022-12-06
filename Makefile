@@ -4,7 +4,7 @@ bash:
 shell:
 	docker-compose exec donate_ukraine /code/manage.py shell
 
-createsuperuser:
+superuser:
 	docker-compose exec donate_ukraine /code/manage.py createsuperuser
 
 migrations:
