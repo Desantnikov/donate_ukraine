@@ -26,17 +26,17 @@ services:
     volumes:
       - .:/code
 
-  app:
-    build: ./donate-ua-frontend
-    container_name: donate-ua-frontend
-    restart: always
-    ports:
-      - '3000:3000'
-    command: 'yarn start'
+#  app:
+#    build: ./donate-ua-frontend
+#    container_name: donate-ua-frontend
+#    restart: always
+#    ports:
+#      - '3000:3000'
+#    command: 'yarn start'
 
-  nginx:
-    build: ./donate-ua-frontend/nginx
-    ports:
-      - '80:80'
-    depends_on:
-      - app
+#  nginx:
+#    build: ./donate-ua-frontend/nginx
+#    ports:
+#      - '80:80'
+#    depends_on:
+#      - app
