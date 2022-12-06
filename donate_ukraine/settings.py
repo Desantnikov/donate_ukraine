@@ -20,10 +20,10 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.sites",
+    "corsheaders",
     "rest_framework",
     "rest_framework.authtoken",
     "rest_framework_simplejwt.token_blacklist",
-    "corsheaders",
     "donate_ukraine",
 ]
 
@@ -68,7 +68,7 @@ DATABASES = {
         "NAME": "postgres",
         "USER": "postgres",
         "PASSWORD": "postgres",
-        "HOST": "db",
+        "HOST": "172.20.0.2",  # "172.20.0.2", to launch by pycharm
         "PORT": "5432",
     }
 }
@@ -94,8 +94,9 @@ AUTH_PASSWORD_VALIDATORS = [
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework_simplejwt.authentication.JWTTokenUserAuthentication",
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
+    # "TOKEN_BLACKLIST_SERIALIZER": "donate_ukraine.serializers.BlacklistSerializer",
 }
 
 AUTHENTICATION_BACKENDS = [
@@ -142,4 +143,6 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=15),
     "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
     "ROTATE_REFRESH_TOKENS": True,
+    # custom blacklist serializer to logout by sending POST request with blank body
+    "TOKEN_BLACKLIST_SERIALIZER": "donate_ukraine.serializers.BlacklistSerializer",
 }

@@ -1,9 +1,9 @@
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenBlacklistView
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from django.contrib import admin
 from django.urls import path
 
-from donate_ukraine.views import LotViewSet, UserViewSet, UserInfoViewSet, LogoutView
+from donate_ukraine.views import LotViewSet, UserViewSet, UserInfoViewSet, LogoutViewSet
 
 
 LIST_VIEWSET_MAPPING = {"get": "list", "post": "create"}
@@ -14,7 +14,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     # send 'username' and 'password', receive 'access' and 'refresh' tokens
     path("login", TokenObtainPairView.as_view(), name="token_obtain_pair"),
-    path("logout", LogoutView.as_view()),
+    path("logout", LogoutViewSet.as_view({"post": "post"})),
     # send 'refresh', receive 'access'
     path("login/refresh", TokenRefreshView.as_view(), name="token_refresh"),
     path("lots/", LotViewSet.as_view(LIST_VIEWSET_MAPPING)),

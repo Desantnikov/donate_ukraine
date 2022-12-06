@@ -1,11 +1,16 @@
 from django.contrib.auth.models import AbstractUser
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
-from rest_framework.authtoken.models import Token
+
+from rest_framework_simplejwt.token_blacklist.models import OutstandingToken
 
 
 class User(AbstractUser):
-    pass
+    @property
+    def is_authenticated(self):
+        outstanding_token = OutstandingToken.objects.filter(user=self)
+
+        return bool(outstanding_token)
 
 
 class Lot(models.Model):
