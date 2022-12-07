@@ -17,3 +17,12 @@ class ImageBase64Serializer(ModelSerializer):
         }
 
         return response_data
+
+
+class ImageNameSerializer(ModelSerializer):
+    class Meta:
+        model = LotImage
+        fields = "__all__"
+
+    def to_representation(self, instance):
+        return {"name": instance.name}
