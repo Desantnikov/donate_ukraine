@@ -24,8 +24,8 @@ INSTALLED_APPS = [
     "corsheaders",
     "rest_framework",
     "rest_framework_roles",
-    "rest_framework.authtoken",
     "rest_framework_simplejwt.token_blacklist",
+    "rest_framework.authtoken",
     "donate_ukraine",
 ]
 
@@ -74,7 +74,7 @@ DATABASES = {
         "NAME": "postgres",
         "USER": "postgres",
         "PASSWORD": "postgres",
-        "HOST": "db",  # "172.20.0.2", to launch by pycharm
+        "HOST": "172.18.0.2",  # "172.20.0.2", to launch by pycharm
         "PORT": "5432",
     }
 }
@@ -102,7 +102,6 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
-    # "TOKEN_BLACKLIST_SERIALIZER": "donate_ukraine.serializers.BlacklistSerializer",
 }
 
 AUTHENTICATION_BACKENDS = [

@@ -4,7 +4,7 @@ from django.db import models
 
 
 class User(AbstractUser):
-    role = models.CharField(max_length=100, default="")
+    role = models.CharField(max_length=100, default="user")
 
 
 class Lot(models.Model):
