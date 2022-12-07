@@ -1,6 +1,4 @@
 import pytest
-
-# from donate_ukraine.models import User
 from django.conf import settings
 
 
