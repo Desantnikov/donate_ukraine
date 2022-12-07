@@ -6,7 +6,7 @@ from rest_framework_simplejwt.token_blacklist.models import OutstandingToken
 
 from donate_ukraine.mixins.views import ListCreateRetrieveUpdateMixin
 from donate_ukraine.models import Lot, User
-from donate_ukraine.serializers import LotsListSerializer, UserSerializer, LotCreateSerializer, LotDetailsSerializer
+from donate_ukraine.serializers import LotListSerializer, UserSerializer, LotCreateSerializer, LotDetailsSerializer
 
 
 class LotViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin):
@@ -20,7 +20,7 @@ class LotViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin):
 
     ACTION_TO_SERIALIZER_MAP = {
         "retrieve": LotDetailsSerializer,
-        "list": LotsListSerializer,
+        "list": LotListSerializer,
         "create": LotCreateSerializer,
     }
 
@@ -40,6 +40,7 @@ class UserViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin):
             password=serializer.validated_data["password"],
             email=serializer.validated_data["email"],
         )
+
         return Response("User created")
 
 

@@ -12,7 +12,7 @@ class LotDetailsSerializer(ModelSerializer):
         fields = "__all__"
 
 
-class LotsListSerializer(ModelSerializer):
+class LotListSerializer(ModelSerializer):
     photo = ImageBase64Serializer(source="lotimage_set.first", many=False)
 
     class Meta:

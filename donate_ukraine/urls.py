@@ -16,9 +16,9 @@ urlpatterns = [
     path("login/refresh", TokenRefreshView.as_view(), name="refresh"),
     path("logout", LogoutViewSet.as_view({"post": "post"}), name="logout"),
 
-    path("users", UserViewSet.as_view(LIST_VIEWSET_MAPPING)),
+    path("users", UserViewSet.as_view(LIST_VIEWSET_MAPPING), name="users"),
     path("users/<int:pk>", UserViewSet.as_view(DETAILS_VIEWSET_MAPPING)),
-    path("users/info", UserInfoViewSet.as_view({"get": "retrieve"})),
+    path("users/info", UserInfoViewSet.as_view({"get": "retrieve"}), name="users-info"),
 
     path("lots", LotViewSet.as_view(LIST_VIEWSET_MAPPING)),
     path("lots/<int:pk>", LotViewSet.as_view(DETAILS_VIEWSET_MAPPING)),

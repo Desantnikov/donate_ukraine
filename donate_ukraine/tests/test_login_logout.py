@@ -29,3 +29,17 @@ def test_token_deleted_after_logout(client, admin_user, admin_user_credentials):
     client.post(path=reverse("logout"))
 
     assert OutstandingToken.objects.all().count() == 0
+
+
+@pytest.mark.django_db
+def test_login_error_on_wrong_credentials(client, admin_user, admin_user_credentials):
+    response = client.post(
+        path=reverse("login"),
+        data={
+            "username": "non-existent",
+            "password": "blabla",
+        },
+    )
+
+    assert response.status_code == 401
+    assert response.json() == {"detail": "No active account found with the given credentials"}
