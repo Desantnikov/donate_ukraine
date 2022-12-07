@@ -14,6 +14,9 @@ class ImageBase64Serializer(ModelSerializer):
         model = LotImage
 
     def to_representation(self, instance):
+        # if instance is None:
+        #     return {}
+
         response_data = {
             "base64_encoded": base64_encode(instance.file.read()),
             "name": instance.name,

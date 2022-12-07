@@ -6,7 +6,7 @@ from rest_framework_simplejwt.token_blacklist.models import OutstandingToken
 
 from donate_ukraine.mixins.views import ListCreateRetrieveUpdateMixin
 from donate_ukraine.models import Lot, User
-from donate_ukraine.serializers import LotShowSerializer, UserSerializer, LotCreateSerializer
+from donate_ukraine.serializers import LotsListSerializer, UserSerializer, LotCreateSerializer, LotDetailsSerializer
 
 
 class LotViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin):
@@ -19,13 +19,15 @@ class LotViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin):
     queryset = Lot.objects.all()
 
     def get_serializer_class(self):
-        if self.action in ["list", "retrieve"]:
-            return LotShowSerializer
+        if self.action == "retrieve":
+            return LotDetailsSerializer
+        if self.action == "list":
+            return LotsListSerializer
         if self.action == "create":
             # LotCreateSerializer doesn't have `photos` field
             # bcs photos should be added with separate request after creating the lot
             return LotCreateSerializer
-        return LotShowSerializer
+        return LotsListSerializer
 
 
 class UserViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin):
