@@ -6,7 +6,7 @@ from rest_framework_simplejwt.token_blacklist.models import OutstandingToken
 
 
 class User(AbstractUser):
-    pass
+    role = models.CharField(max_length=100, default="")
 
 
 class Lot(models.Model):

@@ -15,6 +15,7 @@ django-cors-headers = "*"
 dj-rest-auth = "*"
 django-allauth = "*"
 djangorestframework-simplejwt = "*"
+rest-framework-roles = "*"
 install = "*"
 pytest-django = "*"
 
