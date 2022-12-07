@@ -6,11 +6,7 @@ from rest_framework_simplejwt.token_blacklist.models import OutstandingToken
 
 
 class User(AbstractUser):
-    @property
-    def is_authenticated(self):
-        outstanding_token = OutstandingToken.objects.filter(user=self)
-
-        return bool(outstanding_token)
+    pass
 
 
 class Lot(models.Model):

@@ -23,7 +23,6 @@ INSTALLED_APPS = [
     "pytest_django",
     "corsheaders",
     "rest_framework",
-    "rest_framework.authtoken",
     "rest_framework_simplejwt.token_blacklist",
     "donate_ukraine",
 ]
@@ -69,7 +68,7 @@ DATABASES = {
         "NAME": "postgres",
         "USER": "postgres",
         "PASSWORD": "postgres",
-        "HOST": "172.20.0.2",  # "172.20.0.2", to launch by pycharm
+        "HOST": "db",  # "172.20.0.2",  # "172.20.0.2", to launch by pycharm
         "PORT": "5432",
     }
 }
