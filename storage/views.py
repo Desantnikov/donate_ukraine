@@ -15,10 +15,8 @@ class LotImageViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin):
     }
 
     queryset = LotImage.objects.all()
-    serializer_class = ImageBase64Serializer
 
     def get_serializer_class(self):
-        if self.action in ["list", "retrieve"]:
-            return ImageBase64Serializer
-        else:
+        if self.action == "create":
             return ImageNameSerializer
+        return ImageBase64Serializer

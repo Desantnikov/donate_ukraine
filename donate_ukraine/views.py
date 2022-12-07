@@ -18,14 +18,14 @@ class LotViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin):
 
     queryset = Lot.objects.all()
 
+    ACTION_TO_SERIALIZER_MAP = {
+        "retrieve": LotDetailsSerializer,
+        "list": LotsListSerializer,
+        "create": LotCreateSerializer,
+    }
+
     def get_serializer_class(self):
-        if self.action == "retrieve":
-            return LotDetailsSerializer
-        if self.action == "list":
-            return LotsListSerializer
-        if self.action == "create":
-            return LotCreateSerializer
-        return LotsListSerializer
+        return self.ACTION_TO_SERIALIZER_MAP[self.action]
 
 
 class UserViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin):
