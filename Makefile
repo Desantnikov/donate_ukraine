@@ -36,3 +36,6 @@ fix-files-ownership:
 	sudo chown -R a.desiatnykov postgres-data/  # TODO: fix issue with `postgres-data` folder permissions
 	sudo chown -R a.desiatnykov ./donate_ukraine/migrations/
 	sudo chown -R a.desiatnykov ./storage/migrations/
+
+tests:
+	docker-compose exec donate_ukraine pytest .

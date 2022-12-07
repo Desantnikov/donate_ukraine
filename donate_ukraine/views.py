@@ -61,6 +61,5 @@ class LogoutViewSet(GenericViewSet):
     permission_classes = [IsAuthenticated]
 
     def post(self, request, *args):
-        OutstandingToken.objects.filter(user=User.objects.first()).delete()
-
+        OutstandingToken.objects.filter(user=self.request.user).delete()
         return Response("Logged out")

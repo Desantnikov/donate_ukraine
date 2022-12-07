@@ -1,0 +1,4 @@
+LAUNCH TESTS FROM INSODE THE CONTAINER
+
+make bash
+pytest .
