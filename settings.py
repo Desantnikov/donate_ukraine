@@ -44,7 +44,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "donate_ukraine.urls"
+ROOT_URLCONF = "urls"
 
 TEMPLATES = [
     {

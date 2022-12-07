@@ -1,5 +1,5 @@
 from rest_framework.mixins import RetrieveModelMixin
-from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 from rest_framework_simplejwt.token_blacklist.models import OutstandingToken
@@ -50,7 +50,6 @@ class UserInfoViewSet(GenericViewSet, RetrieveModelMixin):
     serializer_class = UserSerializer
 
     def get_object(self):
-        print("USER INFO", flush=True)
         return self.request.user
 
 
