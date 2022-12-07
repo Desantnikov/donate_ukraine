@@ -1,7 +1,7 @@
 from rest_framework.serializers import ModelSerializer
 
 from donate_ukraine.models import Lot, User
-from storage.views import ImageBase64Serializer
+from storage.serializers import ImageBase64Serializer
 
 
 class LotDetailsSerializer(ModelSerializer):
@@ -19,16 +19,16 @@ class LotsListSerializer(ModelSerializer):
         model = Lot
         fields = "__all__"
 
-    # def to_representation(self, instance):
-    #     representation = super().to_representation(instance)
-    #
-    #     representation[]
-
 
 class LotCreateSerializer(ModelSerializer):
     class Meta:
         model = Lot
-        fields = "__all__"
+        exclude = ["creator"]
+
+    def to_internal_value(self, data):
+        data = super().to_internal_value(data)
+        data["creator"] = self.context["request"].user
+        return data
 
     def to_representation(self, instance):
         return {"id": instance.pk}

@@ -24,8 +24,6 @@ class LotViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin):
         if self.action == "list":
             return LotsListSerializer
         if self.action == "create":
-            # LotCreateSerializer doesn't have `photos` field
-            # bcs photos should be added with separate request after creating the lot
             return LotCreateSerializer
         return LotsListSerializer
 
