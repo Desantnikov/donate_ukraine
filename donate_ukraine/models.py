@@ -12,7 +12,6 @@ class Lot(models.Model):
 
     name = models.CharField(max_length=100, default="")
     description = models.CharField(max_length=512, default="")
-    photos = ArrayField(models.ImageField(upload_to="static"), default=list)
     requisites = ArrayField(models.CharField(max_length=512, default=""), default=list)
 
     report_text = models.CharField(max_length=512, default="")

@@ -1,6 +1,14 @@
 from datetime import timedelta
 from pathlib import Path
+import os
 
+
+# `compose` means app was launched by `docker-compose up`
+# `regular` means app was launched outside of container (by pycharm button or regular `manage.py runserver`)
+LAUNCH_MODE = os.getenv("LAUNCH_MODE", "compose").lower()
+
+IS_COMPOSE = LAUNCH_MODE == "compose"
+IS_REGULAR = LAUNCH_MODE == "regular"
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,6 +35,7 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt.token_blacklist",
     "rest_framework.authtoken",
     "donate_ukraine",
+    "storage",
 ]
 
 REST_FRAMEWORK_ROLES = {
@@ -62,11 +71,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "donate_ukraine.wsgi.application"
-
-
-# Database
-# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
+WSGI_APPLICATION = "wsgi.application"
 
 DATABASES = {
     "default": {
@@ -74,7 +79,7 @@ DATABASES = {
         "NAME": "postgres",
         "USER": "postgres",
         "PASSWORD": "postgres",
-        "HOST": "db",  # "172.20.0.2", to launch by pycharm
+        "HOST": "db" if IS_COMPOSE else "172.18.0.2",
         "PORT": "5432",
     },
 }
@@ -142,7 +147,6 @@ AUTH_USER_MODEL = "donate_ukraine.User"
 CORS_ALLOW_ALL_ORIGINS = True
 
 APPEND_SLASH = True
-
 
 SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=15),

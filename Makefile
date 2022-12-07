@@ -33,6 +33,9 @@ build:
 run:
 	docker-compose up
 
+run-db:
+	docker-compose up db
+
 rebuild:
 	docker-compose up --build --force-recreate --remove-orphans
 
