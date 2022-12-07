@@ -20,9 +20,6 @@ migrate:
 drop-db:
 	docker-compose exec donate_ukraine /code/manage.py flush
 
-populate-db:
-	docker-compose exec donate_ukraine /code/manage.py populate_data
-
 build:
 	docker build . -t donate_ukraine
 

@@ -6,38 +6,30 @@ from rest_framework_simplejwt.token_blacklist.models import OutstandingToken
 
 from donate_ukraine.mixins.views import ListCreateRetrieveUpdateMixin
 from donate_ukraine.models import Lot, User
-from donate_ukraine.serializers import LotSerializer, UserSerializer
+from donate_ukraine.serializers import LotShowSerializer, UserSerializer, LotCreateSerializer
 
 
 class LotViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin):
-    # permission_classes = [IsAuthenticatedOrReadOnly]
-
     view_permissions = {
         "list": {"admin": True, "user": True, "auctioneer": True},
-        "create": {"admin": True, "auctioneer": True},
-        "retrieve": {
-            "admin": True,
-            "auctioneer": True,
-            "user": True,
-        },
+        "create": {"admin": True, "auctioneer": True, "user": True},
+        "retrieve": {"admin": True, "auctioneer": True, "user": True},
     }
 
     queryset = Lot.objects.all()
-    serializer_class = LotSerializer
 
-    # def retrieve(self, request, *args, **kwargs):
-    #     result = super().retrieve(request, *args, **kwargs)
-    #
-    #     return result
+    def get_serializer_class(self):
+        if self.action in ["list", "retrieve"]:
+            return LotShowSerializer
+        if self.action == "create":
+            # LotCreateSerializer doesn't have `photos` field
+            # bcs photos should be added with separate request after creating the lot
+            return LotCreateSerializer
+        return LotShowSerializer
 
 
 class UserViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin):
     permission_classes = [AllowAny]
-    # view_permissions = {
-    #     "list": {"admin": True, "user": False, "auctioneer": True},
-    #     "retrieve": {"admin": True, "user": False, "auctioneer": True},
-    #     "create": {"admin": True, "user": True, "auctioneer": True},
-    # }
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
