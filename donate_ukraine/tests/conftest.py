@@ -4,15 +4,15 @@ import pytest
 from django.conf import settings
 
 
-@pytest.mark.django_db
-@pytest.fixture(autouse=True)
-def django_db_setup():
-    settings.DATABASES["default"] = {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "HOST": "example",
-        "NAME": "test_db",
-        "ATOMIC_REQUESTS": False,
-    }
+# @pytest.mark.django_db
+# @pytest.fixture(autouse=True)
+# def django_db_setup():
+#     settings.DATABASES["default"] = {
+#         "ENGINE": "django.db.backends.postgresql_psycopg2",
+#         "HOST": "example",
+#         "NAME": "test_db",
+#         "ATOMIC_REQUESTS": False,
+#     }
 
 
 @pytest.fixture

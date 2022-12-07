@@ -7,5 +7,5 @@ router = routers.DefaultRouter()
 router.register(r'images', LotImageViewSet)
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path('/', include(router.urls)),  # TODO: Remove slash
 ]

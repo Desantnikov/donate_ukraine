@@ -17,6 +17,7 @@ django-allauth = "*"
 djangorestframework-simplejwt = "*"
 rest-framework-roles = "*"
 install = "*"
+pytest = "*"
 pytest-django = "*"
 
 [dev-packages]
@@ -26,7 +27,6 @@ flake8 = "*"
 flake8-pyproject = "*"
 pre-commit = "*"
 click = "==8.0.4"
-pytest = "*"
 
 [requires]
 python_version = "3.9"
