@@ -17,6 +17,9 @@ class LotCreateSerializer(ModelSerializer):
         model = Lot
         fields = ["name", "description", "creator"]
 
+    def to_representation(self, instance):
+        return {"id": instance.pk}
+
 
 class UserSerializer(ModelSerializer):
     class Meta:
