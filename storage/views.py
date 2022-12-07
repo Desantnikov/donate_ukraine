@@ -25,7 +25,7 @@ class LotImageViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin):
     queryset = LotImage.objects.all()
     serializer_class = LotImageSerializer
 
-    def retrieve(self, request, *args, **kwargs):
+    def retrieve(self, request, *args, **kwargs):  # TODO: Use `get_serializer_class` and different serializers
         instance = self.get_object()
 
         response_data = {
