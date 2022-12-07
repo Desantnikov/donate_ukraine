@@ -22,6 +22,14 @@ class UserViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
+    def perform_create(self, serializer):
+        user = User.objects.create_user(
+            username=serializer.validated_data["username"],
+            password=serializer.validated_data["password"],
+            email=serializer.validated_data["email"],
+        )
+        return user
+
 
 class UserInfoViewSet(GenericViewSet, RetrieveModelMixin):
     permission_classes = [IsAuthenticated]
