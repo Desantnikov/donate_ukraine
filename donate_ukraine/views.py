@@ -15,10 +15,20 @@ class LotViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin):
     view_permissions = {
         "list": {"admin": True, "user": True, "auctioneer": True},
         "create": {"admin": True, "auctioneer": True},
+        "retrieve": {
+            "admin": True,
+            "auctioneer": True,
+            "user": True,
+        },
     }
 
     queryset = Lot.objects.all()
     serializer_class = LotSerializer
+
+    # def retrieve(self, request, *args, **kwargs):
+    #     result = super().retrieve(request, *args, **kwargs)
+    #
+    #     return result
 
 
 class UserViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin):
