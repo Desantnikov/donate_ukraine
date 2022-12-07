@@ -81,6 +81,9 @@ DATABASES = {
         "PASSWORD": "postgres",
         "HOST": "db" if IS_COMPOSE else "172.18.0.2",
         "PORT": "5432",
+        "TEST": {
+            "NAME": "test",
+        },
     },
 }
 
