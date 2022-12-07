@@ -74,7 +74,7 @@ DATABASES = {
         "NAME": "postgres",
         "USER": "postgres",
         "PASSWORD": "postgres",
-        "HOST": "172.18.0.2",  # "172.20.0.2", to launch by pycharm
+        "HOST": "db",  # "172.20.0.2", to launch by pycharm
         "PORT": "5432",
     }
 }
