@@ -1,5 +1,5 @@
-from pathlib import Path
 from datetime import timedelta
+from pathlib import Path
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -70,7 +70,7 @@ DATABASES = {
         "PASSWORD": "postgres",
         "HOST": "db",  # "172.20.0.2",  # "172.20.0.2", to launch by pycharm
         "PORT": "5432",
-    }
+    },
 }
 
 

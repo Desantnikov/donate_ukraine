@@ -1,10 +1,7 @@
 import pytest
 
-# import django_pytest
-
 # from donate_ukraine.models import User
 from django.conf import settings
-import pytest
 
 
 @pytest.mark.django_db

@@ -1,7 +1,7 @@
+from rest_framework.mixins import RetrieveModelMixin
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
-from rest_framework.mixins import RetrieveModelMixin
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from rest_framework_simplejwt.token_blacklist.models import OutstandingToken
 
 from donate_ukraine.mixins.views import ListCreateRetrieveUpdateMixin
@@ -17,18 +17,16 @@ class LotViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin):
 
 
 class UserViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin):
-    permission_classes = [IsAuthenticatedOrReadOnly]
-
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
     def perform_create(self, serializer):
-        user = User.objects.create_user(
+        User.objects.create_user(
             username=serializer.validated_data["username"],
             password=serializer.validated_data["password"],
             email=serializer.validated_data["email"],
         )
-        return user
+        return Response("User created")
 
 
 class UserInfoViewSet(GenericViewSet, RetrieveModelMixin):
