@@ -1,7 +1,7 @@
+from rest_framework.mixins import RetrieveModelMixin
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
-from rest_framework.mixins import RetrieveModelMixin
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from rest_framework_simplejwt.token_blacklist.models import OutstandingToken
 
 from donate_ukraine.mixins.views import ListCreateRetrieveUpdateMixin
@@ -10,14 +10,24 @@ from donate_ukraine.serializers import LotSerializer, UserSerializer
 
 
 class LotViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin):
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    # permission_classes = [IsAuthenticatedOrReadOnly]
+
+    view_permissions = {
+        "list": {"admin": True, "user": True, "auctioneer": True},
+        "create": {"admin": True, "auctioneer": True},
+    }
 
     queryset = Lot.objects.all()
     serializer_class = LotSerializer
 
 
 class UserViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin):
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    # permission_classes = [IsAuthenticatedOrReadOnly]
+
+    view_permissions = {
+        "list": {"admin": True, "user": False, "auctioneer": True},
+        "retrieve": {"admin": True, "user": False, "auctioneer": True},
+    }
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -32,7 +42,11 @@ class UserViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin):
 
 
 class UserInfoViewSet(GenericViewSet, RetrieveModelMixin):
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
+
+    view_permissions = {
+        "retrieve": {"admin": True, "user": True, "auctioneer": True},
+    }
 
     queryset = User.objects.all()
     serializer_class = UserSerializer

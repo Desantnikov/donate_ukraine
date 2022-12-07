@@ -2,11 +2,9 @@ from django.contrib.auth.models import AbstractUser
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
 
-from rest_framework_simplejwt.token_blacklist.models import OutstandingToken
-
 
 class User(AbstractUser):
-    pass
+    role = models.CharField(max_length=100, default="user")
 
 
 class Lot(models.Model):

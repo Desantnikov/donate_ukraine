@@ -1,9 +1,8 @@
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-
 from django.contrib import admin
 from django.urls import path
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
-from donate_ukraine.views import LotViewSet, UserViewSet, UserInfoViewSet, LogoutViewSet
+from donate_ukraine.views import LogoutViewSet, LotViewSet, UserInfoViewSet, UserViewSet
 
 
 LIST_VIEWSET_MAPPING = {"get": "list", "post": "create"}

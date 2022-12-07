@@ -1,5 +1,5 @@
-from pathlib import Path
 from datetime import timedelta
+from pathlib import Path
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -23,9 +23,15 @@ INSTALLED_APPS = [
     "pytest_django",
     "corsheaders",
     "rest_framework",
+    "rest_framework_roles",
     "rest_framework_simplejwt.token_blacklist",
+    "rest_framework.authtoken",
     "donate_ukraine",
 ]
+
+REST_FRAMEWORK_ROLES = {
+    "ROLES": "donate_ukraine.roles.ROLES",
+}
 
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
@@ -68,7 +74,7 @@ DATABASES = {
         "NAME": "postgres",
         "USER": "postgres",
         "PASSWORD": "postgres",
-        "HOST": "db",  # "172.20.0.2",  # "172.20.0.2", to launch by pycharm
+        "HOST": "db",  # "172.20.0.2", to launch by pycharm
         "PORT": "5432",
     }
 }
@@ -96,7 +102,6 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
-    # "TOKEN_BLACKLIST_SERIALIZER": "donate_ukraine.serializers.BlacklistSerializer",
 }
 
 AUTHENTICATION_BACKENDS = [
