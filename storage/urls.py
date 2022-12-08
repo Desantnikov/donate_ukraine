@@ -1,7 +1,8 @@
+from django.urls import include, path
+from rest_framework import routers
+
 from storage.views import LotImageViewSet
 
-from django.urls import path, include
-from rest_framework import routers
 
 router = routers.DefaultRouter()
 router.register(r'images', LotImageViewSet)

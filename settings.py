@@ -1,6 +1,6 @@
+import os
 from datetime import timedelta
 from pathlib import Path
-import os
 
 
 # `compose` means app was launched by `docker-compose up`
@@ -26,7 +26,7 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
-    "django.contrib.staticfiles",
+    # "django.contrib.staticfiles",
     "django.contrib.sites",
     "pytest_django",
     "corsheaders",
@@ -137,7 +137,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = "static/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -157,3 +156,5 @@ SIMPLE_JWT = {
     # custom blacklist serializer to logout by sending POST request with blank body
     "TOKEN_BLACKLIST_SERIALIZER": "donate_ukraine.serializers.BlacklistSerializer",
 }
+
+MEDIA_URL = "/media/"

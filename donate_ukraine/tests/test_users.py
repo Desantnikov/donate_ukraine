@@ -1,6 +1,5 @@
 import pytest
 from django.urls import reverse
-from rest_framework_simplejwt.token_blacklist.models import OutstandingToken
 
 from donate_ukraine.models import User
 

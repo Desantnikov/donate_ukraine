@@ -1,12 +1,12 @@
 from rest_framework.mixins import RetrieveModelMixin
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 from rest_framework_simplejwt.token_blacklist.models import OutstandingToken
 
 from donate_ukraine.mixins.views import ListCreateRetrieveUpdateMixin
 from donate_ukraine.models import Lot, User
-from donate_ukraine.serializers import LotListSerializer, UserSerializer, LotCreateSerializer, LotDetailsSerializer
+from donate_ukraine.serializers import LotCreateSerializer, LotDetailsSerializer, LotListSerializer, UserSerializer
 
 
 class LotViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin):

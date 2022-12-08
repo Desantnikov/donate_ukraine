@@ -1,10 +1,8 @@
 from rest_framework.viewsets import GenericViewSet
-from rest_framework.serializers import ModelSerializer
-
 
 from donate_ukraine.mixins.views import ListCreateRetrieveUpdateMixin
 from storage.models import LotImage
-from storage.serializers import ImageBase64Serializer, ImageNameSerializer
+from storage.serializers import ImageSerializer
 
 
 class LotImageViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin):
@@ -14,9 +12,5 @@ class LotImageViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin):
         "retrieve": {"admin": True, "user": True, "auctioneer": True},
     }
 
+    serializer_class = ImageSerializer
     queryset = LotImage.objects.all()
-
-    def get_serializer_class(self):
-        if self.action == "create":
-            return ImageNameSerializer
-        return ImageBase64Serializer
