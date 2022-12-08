@@ -1,13 +1,21 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import include, path
+from rest_framework import routers
+
+from donate_ukraine.urls import router as donate_ukraine_router
+from donate_ukraine.urls import urlpatterns as donate_ukraine_urlpatterns
+from storage.urls import router as storage_router
 
 
-LIST_VIEWSET_MAPPING = {"get": "list", "post": "create"}
-DETAILS_VIEWSET_MAPPING = {"get": "retrieve", "put": "update"}
+router = routers.DefaultRouter(trailing_slash=False)
 
+router.registry.extend(storage_router.registry)
+router.registry.extend(donate_ukraine_router.registry)
 
 urlpatterns = [
-    path('', include("donate_ukraine.urls")),
-    path('storage', include("storage.urls")),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('', include(router.urls)),
+
+    *donate_ukraine_urlpatterns,  # is it ok to add VIews like that?
+    *static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
+]

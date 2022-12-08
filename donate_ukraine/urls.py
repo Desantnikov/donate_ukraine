@@ -1,25 +1,20 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
+from rest_framework import routers
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
-from donate_ukraine.views import LogoutViewSet, LotViewSet, UserInfoViewSet, UserViewSet
+from donate_ukraine.views import LogoutViewSet, LotViewSet, UserViewSet
 
 
-LIST_VIEWSET_MAPPING = {"get": "list", "post": "create"}
-DETAILS_VIEWSET_MAPPING = {"get": "retrieve", "put": "update"}
+router = routers.DefaultRouter(trailing_slash=False)
 
+router.register('users', UserViewSet, basename='users')
+router.register('lots', LotViewSet, basename='lots')
+router.register('logout', LogoutViewSet, basename='logout')
 
 urlpatterns = [
     path("admin", admin.site.urls),
 
-    path("login", TokenObtainPairView.as_view(), name="login"),
-    path("login/refresh", TokenRefreshView.as_view(), name="refresh"),
-    path("logout", LogoutViewSet.as_view({"post": "post"}), name="logout"),
-
-    path("users", UserViewSet.as_view(LIST_VIEWSET_MAPPING), name="users"),
-    path("users/<int:pk>", UserViewSet.as_view(DETAILS_VIEWSET_MAPPING)),
-    path("users/info", UserInfoViewSet.as_view({"get": "retrieve"}), name="users-info"),
-
-    path("lots", LotViewSet.as_view(LIST_VIEWSET_MAPPING)),
-    path("lots/<int:pk>", LotViewSet.as_view(DETAILS_VIEWSET_MAPPING)),
+    path("login", TokenObtainPairView.as_view(), name="login-list"),  # '-list' to be consistent with ViewSets paths
+    path("login/refresh", TokenRefreshView.as_view(), name="refresh-list"),
 ]

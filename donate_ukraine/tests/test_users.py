@@ -22,8 +22,7 @@ def test_create_user(client):
         "groups": [],
         "user_permissions": [],
     }
-
-    response = client.post(path=reverse("users"), data=user_data)
+    response = client.post(path=reverse("users-list"), data=user_data)
 
     User.objects.get(username="John", email="john@doe.com")
 
@@ -32,13 +31,8 @@ def test_create_user(client):
 
 
 @pytest.mark.django_db
-def test_users_info(client, admin_user, admin_user_credentials):
-    auth_data = client.post(path=reverse("login"), data=admin_user_credentials).json()
-
-    client.defaults["HTTP_AUTHORIZATION"] = f'Bearer {auth_data["access"]}'
-
-    response = client.get(path=reverse("users-info"))
+def test_users_info(admin_client_with_jwt):
+    response = admin_client_with_jwt.get(path=reverse("users-info"))
 
     assert response.status_code == 200
-
     assert response.json()["username"] == "admin"

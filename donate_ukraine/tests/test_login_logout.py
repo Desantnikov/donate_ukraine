@@ -5,7 +5,7 @@ from rest_framework_simplejwt.token_blacklist.models import OutstandingToken
 
 @pytest.mark.django_db
 def test_login_endpoint_returns_two_tokens(client, admin_user, admin_user_credentials):
-    response_data = client.post(path=reverse("login"), data=admin_user_credentials).json()
+    response_data = client.post(path=reverse("login-list"), data=admin_user_credentials).json()
 
     assert set(response_data.keys()) == {"access", "refresh"}
 
@@ -14,7 +14,7 @@ def test_login_endpoint_returns_two_tokens(client, admin_user, admin_user_creden
 def test_login_endpoint_creates_token_in_db(client, admin_user, admin_user_credentials):
     tokens_amount_before_login = OutstandingToken.objects.all().count()
 
-    client.post(path=reverse("login"), data=admin_user_credentials)
+    client.post(path=reverse("login-list"), data=admin_user_credentials)
 
     assert OutstandingToken.objects.all().count() == tokens_amount_before_login + 1
 
@@ -23,10 +23,10 @@ def test_login_endpoint_creates_token_in_db(client, admin_user, admin_user_crede
 def test_token_deleted_after_logout(client, admin_user, admin_user_credentials):
     assert OutstandingToken.objects.all().count() == 0
 
-    response_data = client.post(path=reverse("login"), data=admin_user_credentials).json()
+    response_data = client.post(path=reverse("login-list"), data=admin_user_credentials).json()
 
     client.defaults["HTTP_AUTHORIZATION"] = f'Bearer {response_data["access"]}'
-    client.post(path=reverse("logout"))
+    client.post(path=reverse("logout-list"))
 
     assert OutstandingToken.objects.all().count() == 0
 
@@ -34,7 +34,7 @@ def test_token_deleted_after_logout(client, admin_user, admin_user_credentials):
 @pytest.mark.django_db
 def test_login_error_on_wrong_credentials(client, admin_user, admin_user_credentials):
     response = client.post(
-        path=reverse("login"),
+        path=reverse("login-list"),
         data={
             "username": "non-existent",
             "password": "blabla",

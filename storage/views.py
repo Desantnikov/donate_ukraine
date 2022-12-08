@@ -7,8 +7,8 @@ from storage.serializers import ImageSerializer
 
 class LotImageViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin):
     view_permissions = {
-        "list": {"admin": True, "user": True, "auctioneer": True},
-        "create": {"admin": True, "user": True, "auctioneer": True},
+        "list": {"admin": True, "user": False, "auctioneer": False},
+        "create": {"admin": True, "user": False, "auctioneer": True},
         "retrieve": {"admin": True, "user": True, "auctioneer": True},
     }
 

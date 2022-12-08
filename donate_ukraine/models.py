@@ -1,10 +1,19 @@
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, UserManager as DjangoUserManager
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
 
 
+class UserManager(DjangoUserManager):
+    def create_superuser(self, *args, **kwargs):
+        user = super().create_superuser(role="admin", *args, **kwargs)
+
+        return user
+
+
 class User(AbstractUser):
-    role = models.CharField(max_length=100, default="user")
+    objects = UserManager()
+
+    role = models.CharField(max_length=20, default="user")
 
 
 class Lot(models.Model):
