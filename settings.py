@@ -84,10 +84,6 @@ DATABASES = {
     },
 }
 
-
-# Password validation
-# https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     # {
     #     "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
@@ -117,7 +113,7 @@ AUTHENTICATION_BACKENDS = [
 
 ACCOUNT_AUTHENTICATION_METHOD = "username"
 
-ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+ACCOUNT_CONFIRM_EMAIL_ON_GET = False
 
 PASSWORD_MIN_LENGTH = 1
 
