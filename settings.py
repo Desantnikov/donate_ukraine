@@ -26,8 +26,8 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
-    # "django.contrib.staticfiles",
-    "django.contrib.sites",
+    "django.contrib.staticfiles",
+    # "django.contrib.sites",
     "pytest_django",
     "corsheaders",
     "rest_framework",
@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     "donate_ukraine",
     "storage",
 ]
+
+STATIC_URL = "/static/"
 
 REST_FRAMEWORK_ROLES = {
     "ROLES": "donate_ukraine.roles.ROLES",

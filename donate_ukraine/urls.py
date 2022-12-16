@@ -13,7 +13,7 @@ router.register('lots', LotViewSet, basename='lots')
 router.register('logout', LogoutViewSet, basename='logout')
 
 urlpatterns = [
-    path("admin", admin.site.urls),
+    path("admin/", admin.site.urls),
 
     path("login", TokenObtainPairView.as_view(), name="login-list"),  # '-list' to be consistent with ViewSets paths
     path("login/refresh", TokenRefreshView.as_view(), name="refresh-list"),
