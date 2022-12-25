@@ -1,3 +1,5 @@
+import datetime
+
 import requests
 
 
@@ -22,13 +24,17 @@ class MonobankApiWrapper:
 
         return response.json()
 
-    def fetch_jar_info_by_id(self, jar_id):
-        jar_info = requests.get(
-            url=f"{self.API_URL}/personal/statement/{jar_id}",
+    def fetch_jar_transactions_by_id(self, jar_id):
+        current_time = datetime.datetime.now()
+        period_start = current_time - datetime.timedelta(days=30)
+        period_start_timestamp = int(period_start.timestamp())
+
+        jar_transactions = requests.get(
+            url=f"{self.API_URL}/personal/statement/{jar_id}/{period_start_timestamp}",
             headers=self.auth_headers,
         ).json()
 
-        return jar_info
+        return jar_transactions
 
     def get_jar_by_title(self, title):
         jars = self.user_info["jars"]

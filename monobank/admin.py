@@ -1,3 +1,4 @@
 from django.contrib import admin
+from monobank.models import MonobankJar
 
-# Register your models here.
+admin.site.register(MonobankJar)

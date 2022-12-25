@@ -21,6 +21,7 @@ def test_create_user(client):
         "is_active": False,
         "groups": [],
         "user_permissions": [],
+        "api_token": None,
     }
     response = client.post(path=reverse("users-list"), data=user_data)
 

@@ -57,11 +57,17 @@ class LotCreateSerializer(ModelSerializer):
         monobank_jar.save()
 
         data = super().to_internal_value(data)
-        data["creator"] = self.context["request"].user
 
+        data["creator"] = self.context["request"].user
         data["monobank_jar"] = monobank_jar
 
         return data
+
+    def create(self, validated_data):
+        created_lot = super(LotCreateSerializer, self).create(validated_data)
+        created_lot.monobank_jar.update_data()
+
+        return created_lot
 
     def to_representation(self, instance):
         return {"id": instance.pk}

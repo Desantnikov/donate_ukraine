@@ -1,4 +1,9 @@
 from django.contrib import admin
+from storage.models import LotImage
 
 
-# Register your models here.
+class LotImageAdmin(admin.ModelAdmin):
+    pass
+
+
+admin.site.register(LotImage, LotImageAdmin)
