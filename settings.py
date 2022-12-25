@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     "donate_ukraine",
     "storage",
+    "monobank",
 ]
 
 REST_FRAMEWORK_ROLES = {

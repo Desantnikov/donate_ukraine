@@ -4,6 +4,7 @@ from rest_framework.serializers import ModelSerializer
 
 from donate_ukraine.models import Lot, User
 from storage.serializers import ImageSerializer
+from monobank.models import MonobankJar
 
 
 class UserSerializer(ModelSerializer):
@@ -28,6 +29,8 @@ class UserSerializer(ModelSerializer):
 class LotDetailsSerializer(ModelSerializer):
     photos = ImageSerializer(source="lotimage_set", many=True)
 
+    highest_bid = ModelSerializer(source="monobank_jar__highest_bid")
+
     class Meta:
         model = Lot
         fields = "__all__"
@@ -47,8 +50,17 @@ class LotCreateSerializer(ModelSerializer):
         exclude = ["creator"]  # creator (user) should be parsed from JWT token
 
     def to_internal_value(self, data):
+        monobank_jar = MonobankJar(
+            title=data["monobank_jar_title"],
+            link=data["link_to_monobank_jar"],
+        )
+        monobank_jar.save()
+
         data = super().to_internal_value(data)
         data["creator"] = self.context["request"].user
+
+        data["monobank_jar"] = monobank_jar
+
         return data
 
     def to_representation(self, instance):

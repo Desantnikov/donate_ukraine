@@ -1,4 +1,5 @@
 from rest_framework.viewsets import GenericViewSet
+from rest_framework.permissions import IsAuthenticated
 
 from donate_ukraine.mixins.views import ListCreateRetrieveUpdateMixin
 from storage.models import LotImage
@@ -6,11 +7,7 @@ from storage.serializers import ImageSerializer
 
 
 class LotImageViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin):
-    view_permissions = {
-        "list": {"admin": True, "user": False, "auctioneer": False},
-        "create": {"admin": True, "user": False, "auctioneer": True},
-        "retrieve": {"admin": True, "user": True, "auctioneer": True},
-    }
+    permission_classes = [IsAuthenticated]
 
     serializer_class = ImageSerializer
     queryset = LotImage.objects.all()

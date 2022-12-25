@@ -15,7 +15,7 @@ class UserManager(DjangoUserManager):
 class User(AbstractUser):
     objects = UserManager()
 
-    api_token = models.CharField(max_length=40)  # to fetch data from auction creator's monobank jar
+    api_token = models.CharField(max_length=40, null=True)  # to fetch data from auction creator's monobank jar
     role = models.CharField(max_length=20, default="user")
 
 
@@ -29,4 +29,4 @@ class Lot(models.Model):
     report_text = models.CharField(max_length=512, default="")
     report_images = ArrayField(models.ImageField(upload_to="static"), default=list)
 
-    monobank_jar = models.OneToOneField(MonobankJar, models.PROTECT)
+    monobank_jar = models.OneToOneField(MonobankJar, models.PROTECT, null=True)

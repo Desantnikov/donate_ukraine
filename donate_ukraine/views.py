@@ -10,11 +10,7 @@ from donate_ukraine.serializers import LotCreateSerializer, LotDetailsSerializer
 
 
 class LotViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin):
-    view_permissions = {
-        "list": {"admin": True, "user": True, "auctioneer": True},
-        "create": {"admin": True, "auctioneer": True, "user": False},
-        "retrieve": {"admin": True, "auctioneer": True, "user": True},
-    }
+    permission_classes = [IsAuthenticated]
 
     queryset = Lot.objects.all()
 
