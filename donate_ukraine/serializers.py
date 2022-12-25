@@ -1,6 +1,6 @@
 import copy
 
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import ModelSerializer, IntegerField
 
 from donate_ukraine.models import Lot, User
 from storage.serializers import ImageSerializer
@@ -29,7 +29,7 @@ class UserSerializer(ModelSerializer):
 class LotDetailsSerializer(ModelSerializer):
     photos = ImageSerializer(source="lotimage_set", many=True)
 
-    highest_bid = ModelSerializer(source="monobank_jar__highest_bid")
+    highest_bid = IntegerField(source="monobank_jar.highest_bid")
 
     class Meta:
         model = Lot
@@ -38,6 +38,8 @@ class LotDetailsSerializer(ModelSerializer):
 
 class LotListSerializer(ModelSerializer):
     photo = ImageSerializer(source="lotimage_set.first", many=False)
+
+    highest_bid = IntegerField(source="monobank_jar.highest_bid")
 
     class Meta:
         model = Lot

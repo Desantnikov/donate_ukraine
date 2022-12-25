@@ -9,7 +9,7 @@ class MonobankApiWrapper:
     def __init__(self, api_token):
         self.api_token = api_token
         self.auth_headers = {"X-Token": self.api_token}
-
+        print(f"\r\nTOKEN: {self.api_token}")  #
         self.user_info = self.fetch_user_info()
 
     def fetch_user_info(self):

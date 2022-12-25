@@ -29,4 +29,4 @@ class Lot(models.Model):
     report_text = models.CharField(max_length=512, default="")
     report_images = ArrayField(models.ImageField(upload_to="static"), default=list)
 
-    monobank_jar = models.OneToOneField(MonobankJar, models.PROTECT, null=True)
+    monobank_jar = models.OneToOneField(MonobankJar, models.PROTECT, null=True)  # TODO: make foreign key from Jar

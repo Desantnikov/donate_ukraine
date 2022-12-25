@@ -1,15 +1,20 @@
 import datetime
 
+import os
+from django.conf import settings
 from django.db import models
 from django.utils.timezone import now
 
+# from donate_ukraine.models import Lot
 from monobank.api_wrapper import MonobankApiWrapper
 
 
 class MonobankJar(models.Model):
+    # lot = models.ForeignKey(Lot, on_delete=models.CASCADE)
+
     title = models.CharField(max_length=40, default="")
 
-    monobank_id = models.CharField(max_length=40, null=True)  # monobank id like `8OWpMMCU-Tfy11N7EF_mTcha66csZZE`
+    monobank_id = models.CharField(max_length=40, null=True)  # monobank id like `8OWpMMCU-Tfy11Nha66csZZE`
     link = models.CharField(max_length=40, default="")
 
     current_balance = models.IntegerField(default=0)
@@ -18,11 +23,10 @@ class MonobankJar(models.Model):
     last_updated = models.DateTimeField(default=now)
 
     def update_data(self):
-
-        # api_wrapper = MonobankApiWrapper(api_token=self.lot.creator.api_token)
+        # TODO: take api key from user model
         api_wrapper = MonobankApiWrapper(
             api_token="uVKUhhl0SM0JNu1FAJrSQtrXgVr_UVQLR1R92uuW-cto"
-        )  # TODO: take api key from user model
+        )  # pls don't steal my money
 
         jar_data = api_wrapper.get_jar_by_title(title=self.title)
 
