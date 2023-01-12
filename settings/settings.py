@@ -11,7 +11,8 @@ IS_COMPOSE = LAUNCH_MODE == "compose"
 IS_REGULAR = LAUNCH_MODE == "regular"
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(__file__).resolve().parent.parent
+print(f"\r\n\r\nBASE_DIR: {BASE_DIR}\r\n")
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-04_7wq%!3o4p9+5he^^v#_ddgc4wh08xc9zb0@hk_hooq$=gx_"
@@ -26,7 +27,7 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
-    # "django.contrib.staticfiles",
+    "django.contrib.staticfiles",
     "django.contrib.sites",
     "pytest_django",
     "corsheaders",
@@ -156,3 +157,5 @@ SIMPLE_JWT = {
 }
 
 MEDIA_URL = "/media/"
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_URL = "/static/"
