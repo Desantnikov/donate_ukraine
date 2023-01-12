@@ -24,7 +24,7 @@ class LotViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin):
         return self.ACTION_TO_SERIALIZER_MAP[self.action]
 
 
-class UserViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin):
+class UserViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin):  # TODO: remove list all users
     permission_classes = [AllowAny]
     queryset = User.objects.all()
     serializer_class = UserSerializer
