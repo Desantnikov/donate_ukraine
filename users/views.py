@@ -1,5 +1,3 @@
-from django.shortcuts import render
-
 # Create your views here.
 from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -7,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from donate_ukraine.mixins.views import ListCreateRetrieveUpdateMixin
+from mixins.views import ListCreateRetrieveUpdateMixin
 from users.serializers import UserSerializer
 from users.models import User
 

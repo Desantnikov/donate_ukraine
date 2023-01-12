@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "donate_ukraine",
     "storage",
     "monobank",
+    "mixins",
 ]
 
 REST_FRAMEWORK_ROLES = {

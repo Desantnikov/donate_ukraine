@@ -1,7 +1,9 @@
 from django.contrib.auth.models import UserManager as DjangoUserManager, AbstractUser
 from django.db import models
 
-# Create your models here.
+from mixins.models import ModeratableModelMixin
+
+
 class UserManager(DjangoUserManager):
     def create_superuser(self, *args, **kwargs):
         user = super().create_superuser(role="admin", *args, **kwargs)
@@ -9,7 +11,7 @@ class UserManager(DjangoUserManager):
         return user
 
 
-class User(AbstractUser):
+class User(AbstractUser, ModeratableModelMixin):
     REQUIRED_FIELDS = ["password", "api_token"]
 
     objects = UserManager()

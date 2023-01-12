@@ -9,11 +9,18 @@ superuser:
 
 migrations:
 	docker-compose exec donate_ukraine /code/manage.py makemigrations
-	docker-compose exec donate_ukraine /code/manage.py makemigrations donate_ukraine
+#	docker-compose exec donate_ukraine /code/manage.py makemigrations donate_ukraine
+#	docker-compose exec donate_ukraine /code/manage.py makemigrations monobank
+#	docker-compose exec donate_ukraine /code/manage.py makemigrations storage
+#	docker-compose exec donate_ukraine /code/manage.py makemigrations users
+
 
 migrate:
 	docker-compose exec donate_ukraine /code/manage.py migrate
-	docker-compose exec donate_ukraine /code/manage.py migrate donate_ukraine
+#	docker-compose exec donate_ukraine /code/manage.py migrate donate_ukraine
+#	docker-compose exec donate_ukraine /code/manage.py migrate monobank
+#	docker-compose exec donate_ukraine /code/manage.py migrate storage
+#	docker-compose exec donate_ukraine /code/manage.py migrate users
 	# Works for Windows:
 	# docker-compose exec donate_ukraine python manage.py migrate
 
