@@ -10,6 +10,7 @@ def test_create_user(client):
         "username": "John",
         "password": "Doe",
         "email": "john@doe.com",
+        "api_token": "asdasd",
     }
     expected_response = {  # TODO: check why it returns so much fields while in postman only 4
         "password": "Doe",
@@ -21,7 +22,7 @@ def test_create_user(client):
         "is_active": False,
         "groups": [],
         "user_permissions": [],
-        "api_token": None,
+        "api_token": "asdasd",
     }
     response = client.post(path=reverse("users-list"), data=user_data)
 

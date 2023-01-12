@@ -21,17 +21,20 @@ class User(AbstractUser):
     api_token = models.CharField(max_length=60, null=False)  # encrypt
     role = models.CharField(max_length=20, default="user")
 
+    phone_number = models.CharField(max_length=20, default="")  # needed for moderation
+
 
 class Lot(models.Model):
     creator = models.ForeignKey(User, models.PROTECT)
 
     name = models.CharField(max_length=100, default="")
     description = models.CharField(max_length=512, default="")
+    ending_date = models.DateTimeField(null=True)  # auction ends when jar is full or by ending date
 
-    # TODO: remove field? all requisites stored in jar instance
-    requisites = ArrayField(models.CharField(max_length=512, default=""), default=list)
+    is_under_moderation = models.BooleanField(default=True)  # on create/edit
 
+    # TODO: move report to separate model?
     report_text = models.CharField(max_length=512, default="")
     report_images = ArrayField(models.ImageField(upload_to="static"), default=list)
 
-    monobank_jar = models.OneToOneField(MonobankJar, models.PROTECT, null=True)  # TODO: make foreign key from Jar
+    monobank_jar = models.OneToOneField(MonobankJar, models.PROTECT, null=True)

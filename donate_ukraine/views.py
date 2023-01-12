@@ -12,7 +12,7 @@ from donate_ukraine.serializers import LotCreateSerializer, LotDetailsSerializer
 class LotViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin):
     permission_classes = [IsAuthenticated]
 
-    queryset = Lot.objects.all()
+    queryset = Lot.objects.filter(is_under_moderation=False)
 
     ACTION_TO_SERIALIZER_MAP = {
         "retrieve": LotDetailsSerializer,
