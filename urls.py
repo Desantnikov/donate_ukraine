@@ -31,7 +31,7 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
-    path('api-schema/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-view'),
+    re_path('api-schema', schema_view.with_ui('swagger', cache_timeout=0), name='schema-view'),
     path('admin/', admin.site.urls),
 
     path('', include(router.urls)),
