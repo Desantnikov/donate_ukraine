@@ -25,6 +25,8 @@ services:
       - db:db
     volumes:
       - .:/code
+    environment:
+      - DJANGO_SETTINGS_MODULE=settings.settings
 
 #  app:
 #    build: ./donate-ua-frontend

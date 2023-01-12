@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     "rest_framework_roles",
     "rest_framework_simplejwt.token_blacklist",
     "rest_framework.authtoken",
+    "drf_yasg",
     "donate_ukraine",
     "storage",
     "monobank",

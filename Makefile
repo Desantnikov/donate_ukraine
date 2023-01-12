@@ -33,10 +33,10 @@ rebuild:
 	docker-compose up --build --force-recreate --remove-orphans
 
 fix-files-ownership:
-	sudo chown -R a.desiatnykov postgres-data/  # TODO: fix issue with `postgres-data` folder permissions
-	sudo chown -R a.desiatnykov ./donate_ukraine/migrations/
-	sudo chown -R a.desiatnykov ./storage/migrations/
-	sudo chown -R a.desiatnykov ./monobank/migrations/
+	sudo chmod -R 777 postgres-data/  # TODO: fix issue with `postgres-data` folder permissions
+	sudo chmod -R 777 ./donate_ukraine/migrations/
+	sudo chmod -R 777 ./storage/migrations/
+	sudo chmod -R 777 ./monobank/migrations/
 
 tests:
 	docker-compose exec donate_ukraine pytest .

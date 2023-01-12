@@ -1,7 +1,10 @@
 from django.conf import settings
 from django.conf.urls.static import static
-from django.urls import include, path
+from django.urls import include, path, re_path
 from django.contrib import admin
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework import routers
 
 from donate_ukraine.urls import router as donate_ukraine_router
@@ -16,11 +19,23 @@ router.registry.extend(storage_router.registry)
 router.registry.extend(donate_ukraine_router.registry)
 router.registry.extend(monobank_router.registry)
 
+
+schema_view = get_schema_view(
+   openapi.Info(
+      title="DonateUA private API",
+      default_version='v1',
+   ),
+   public=True,
+   permission_classes=[AllowAny],
+)
+
+
 urlpatterns = [
+    path('api-schema/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-view'),
     path('admin/', admin.site.urls),
 
     path('', include(router.urls)),
 
-    *donate_ukraine_urlpatterns,  # is it ok to add VIews like that?
+    *donate_ukraine_urlpatterns,  # TODO: refactor
     *static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
 ]

@@ -56,7 +56,7 @@ class LotCreateSerializer(ModelSerializer):
 
 
 class UserSerializer(ModelSerializer):
-    lots = LotDetailsSerializer(source="lot_set", many=True)
+    lots = LotDetailsSerializer(source="lot_set", many=True, required=False)
 
     class Meta:
         model = User

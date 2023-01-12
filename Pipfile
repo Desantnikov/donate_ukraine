@@ -21,6 +21,7 @@ pytest = "*"
 pytest-django = "*"
 pyyaml = "*"
 uritemplate = "*"
+drf-yasg = "*"
 
 [dev-packages]
 black = "*"

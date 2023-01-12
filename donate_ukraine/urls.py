@@ -1,8 +1,6 @@
-from django.contrib import admin
-from django.urls import include, path
+from django.urls import path
 from rest_framework import routers
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-
 
 from donate_ukraine.views import LogoutViewSet, LotViewSet, UserViewSet
 
