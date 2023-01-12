@@ -33,15 +33,15 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework_roles",
     "rest_framework_simplejwt.token_blacklist",
-    "rest_framework.authtoken",
     "drf_yasg",
+    "users",
     "donate_ukraine",
     "storage",
     "monobank",
 ]
 
 REST_FRAMEWORK_ROLES = {
-    "ROLES": "donate_ukraine.roles.ROLES",
+    "ROLES": "users.roles.ROLES",
 }
 
 SITE_ID = 1
@@ -144,7 +144,6 @@ USE_TZ = True
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-AUTH_USER_MODEL = "donate_ukraine.User"
 
 CORS_ALLOW_ALL_ORIGINS = True
 
@@ -154,10 +153,11 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=15),
     "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
     "ROTATE_REFRESH_TOKENS": True,
-    # custom blacklist serializer to logout by sending POST request with blank body
-    "TOKEN_BLACKLIST_SERIALIZER": "donate_ukraine.serializers.BlacklistSerializer",
 }
 
 MEDIA_URL = "/media/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_URL = "/static/"
+
+AUTH_USER_MODEL = "users.User"
+CUSTOM_USER_MODEL = "users.User"

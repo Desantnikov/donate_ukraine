@@ -1,8 +1,6 @@
-import copy
+from rest_framework.serializers import ModelSerializer, CharField, URLField
 
-from rest_framework.serializers import ModelSerializer, HyperlinkedModelSerializer, ModelField, CharField, URLField
-
-from donate_ukraine.models import Lot, User
+from donate_ukraine.models import Lot
 from storage.serializers import ImageSerializer
 from monobank.models import MonobankJar
 from monobank.serializers import MonobankJarSerializer
@@ -63,24 +61,3 @@ class LotCreateSerializer(ModelSerializer):
 
     def to_representation(self, instance):
         return {"id": instance.pk}
-
-
-class UserSerializer(ModelSerializer):
-    lots = LotDetailsSerializer(source="lot_set", many=True, required=False)
-
-    class Meta:
-        model = User
-        fields = "__all__"
-
-    def save(self, **kwargs):
-        user_data = copy.copy(self.validated_data)
-
-        # m2m fields can't be set during creation
-        groups = user_data.pop("groups", [])
-        user_permissions = user_data.pop("user_permissions", [])
-
-        user = User.objects.create_user(**user_data)
-        user.groups.set(groups)
-        user.user_permissions.set(user_permissions)
-
-        return user

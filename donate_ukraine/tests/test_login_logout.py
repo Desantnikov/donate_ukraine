@@ -1,6 +1,6 @@
 import pytest
 from django.urls import reverse
-from rest_framework_simplejwt.token_blacklist.models import OutstandingToken
+from rest_framework_simplejwt.token_blacklist.models import OutstandingToken, BlacklistedToken
 
 
 @pytest.mark.django_db
@@ -21,14 +21,14 @@ def test_login_endpoint_creates_token_in_db(client, admin_user, admin_user_crede
 
 @pytest.mark.django_db
 def test_token_deleted_after_logout(client, admin_user, admin_user_credentials):
-    assert OutstandingToken.objects.all().count() == 0
+    blacklisted_tokens_amount = BlacklistedToken.objects.all().count()
 
     response_data = client.post(path=reverse("login-list"), data=admin_user_credentials).json()
 
     client.defaults["HTTP_AUTHORIZATION"] = f'Bearer {response_data["access"]}'
     client.post(path=reverse("logout-list"))
 
-    assert OutstandingToken.objects.all().count() == 0
+    assert BlacklistedToken.objects.all().count() == blacklisted_tokens_amount + 1
 
 
 @pytest.mark.django_db

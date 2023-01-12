@@ -1,27 +1,8 @@
-from django.contrib.auth.models import AbstractUser, UserManager as DjangoUserManager
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
 
 from monobank.models import MonobankJar
-
-
-class UserManager(DjangoUserManager):
-    def create_superuser(self, *args, **kwargs):
-        user = super().create_superuser(role="admin", *args, **kwargs)
-
-        return user
-
-
-class User(AbstractUser):
-    REQUIRED_FIELDS = ["password", "api_token"]
-
-    objects = UserManager()
-
-    # to fetch data from auction creator's monobank jar
-    api_token = models.CharField(max_length=60, null=False)  # encrypt
-    role = models.CharField(max_length=20, default="user")
-
-    phone_number = models.CharField(max_length=20, default="")  # needed for moderation
+from users.models import User
 
 
 class Lot(models.Model):

@@ -37,6 +37,7 @@ fix-files-ownership:
 	sudo chmod -R 777 ./donate_ukraine/migrations/
 	sudo chmod -R 777 ./storage/migrations/
 	sudo chmod -R 777 ./monobank/migrations/
+	sudo chmod -R 777 ./users/migrations/
 
 tests:
 	docker-compose exec donate_ukraine pytest .

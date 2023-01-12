@@ -1,7 +1,7 @@
 import pytest
 from django.urls import reverse
 
-from donate_ukraine.models import User
+from users.models import User
 
 
 @pytest.mark.django_db

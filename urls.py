@@ -7,8 +7,9 @@ from drf_yasg import openapi
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework import routers
 
+from users.urls import router as users_router
 from donate_ukraine.urls import router as donate_ukraine_router
-from donate_ukraine.urls import urlpatterns as donate_ukraine_urlpatterns
+from users.urls import urlpatterns as users_urlpatterns
 from storage.urls import router as storage_router
 from monobank.urls import router as monobank_router
 
@@ -18,7 +19,7 @@ router = routers.DefaultRouter(trailing_slash=False)
 router.registry.extend(storage_router.registry)
 router.registry.extend(donate_ukraine_router.registry)
 router.registry.extend(monobank_router.registry)
-
+router.registry.extend(users_router.registry)
 
 schema_view = get_schema_view(
    openapi.Info(
@@ -29,13 +30,12 @@ schema_view = get_schema_view(
    permission_classes=[AllowAny],
 )
 
-
 urlpatterns = [
     path('api-schema/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-view'),
     path('admin/', admin.site.urls),
 
     path('', include(router.urls)),
 
-    *donate_ukraine_urlpatterns,  # TODO: refactor
+    *users_urlpatterns,  # TODO: refactor
     *static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
 ]
