@@ -27,6 +27,8 @@ class Lot(models.Model):
 
     name = models.CharField(max_length=100, default="")
     description = models.CharField(max_length=512, default="")
+
+    # TODO: remove field? all requisites stored in jar instance
     requisites = ArrayField(models.CharField(max_length=512, default=""), default=list)
 
     report_text = models.CharField(max_length=512, default="")

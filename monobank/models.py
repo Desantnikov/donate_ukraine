@@ -23,7 +23,6 @@ class MonobankJar(models.Model):
     last_updated = models.DateTimeField(default=now)
 
     def update_data(self):
-        # TODO: take api key from user model
         api_wrapper = MonobankApiWrapper(api_token=self.lot.creator.api_token)  # pls don't steal my money
 
         jar_data = api_wrapper.get_jar_by_title(title=self.title)
