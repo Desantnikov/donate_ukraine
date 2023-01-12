@@ -1,5 +1,5 @@
 from rest_framework.decorators import action
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 from rest_framework_simplejwt.token_blacklist.models import OutstandingToken
@@ -10,7 +10,7 @@ from donate_ukraine.serializers import LotCreateSerializer, LotDetailsSerializer
 
 
 class LotViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
     queryset = Lot.objects.filter(is_under_moderation=False)
 

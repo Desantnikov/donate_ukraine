@@ -19,6 +19,8 @@ rest-framework-roles = "*"
 install = "*"
 pytest = "*"
 pytest-django = "*"
+pyyaml = "*"
+uritemplate = "*"
 
 [dev-packages]
 black = "*"
