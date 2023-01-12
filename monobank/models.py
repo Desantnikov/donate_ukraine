@@ -24,9 +24,7 @@ class MonobankJar(models.Model):
 
     def update_data(self):
         # TODO: take api key from user model
-        api_wrapper = MonobankApiWrapper(
-            api_token="uVKUhhl0SM0JNu1FAJrSQtrXgVr_UVQLR1R92uuW-cto"
-        )  # pls don't steal my money
+        api_wrapper = MonobankApiWrapper(api_token=self.lot.creator.api_token)  # pls don't steal my money
 
         jar_data = api_wrapper.get_jar_by_title(title=self.title)
 

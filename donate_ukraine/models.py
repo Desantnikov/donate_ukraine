@@ -13,9 +13,12 @@ class UserManager(DjangoUserManager):
 
 
 class User(AbstractUser):
+    REQUIRED_FIELDS = ["password", "api_token"]
+
     objects = UserManager()
 
-    api_token = models.CharField(max_length=40, null=True)  # to fetch data from auction creator's monobank jar
+    # to fetch data from auction creator's monobank jar
+    api_token = models.CharField(max_length=60, null=False)  # encrypt
     role = models.CharField(max_length=20, default="user")
 
 
