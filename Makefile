@@ -5,14 +5,14 @@ shell:
 	docker-compose exec donate_ukraine /code/manage.py shell
 
 superuser:
-	docker-compose exec donate_ukraine /code/manage.py createsuperuser
+	docker-compose exec donate_ukraine /code/manage.py createsuperuser  --username=root --password=12345678
 
 migrations:
 	docker-compose exec donate_ukraine /code/manage.py makemigrations
-#	docker-compose exec donate_ukraine /code/manage.py makemigrations donate_ukraine
-#	docker-compose exec donate_ukraine /code/manage.py makemigrations monobank
-#	docker-compose exec donate_ukraine /code/manage.py makemigrations storage
+#	docker-compose exec donate_ukraine /code/manage.py makemigrations lots
 #	docker-compose exec donate_ukraine /code/manage.py makemigrations users
+#	docker-compose exec donate_ukraine /code/manage.py makemigrations storage
+#	docker-compose exec donate_ukraine /code/manage.py makemigrations monobank
 
 
 migrate:
@@ -41,7 +41,7 @@ rebuild:
 
 fix-files-ownership:
 	sudo chmod -R 777 postgres-data/  # TODO: fix issue with `postgres-data` folder permissions
-	sudo chmod -R 777 ./donate_ukraine/migrations/
+	sudo chmod -R 777 ./lots/migrations/
 	sudo chmod -R 777 ./storage/migrations/
 	sudo chmod -R 777 ./monobank/migrations/
 	sudo chmod -R 777 ./users/migrations/
