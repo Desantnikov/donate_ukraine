@@ -14,16 +14,6 @@ from storage.urls import router as storage_router
 from monobank.urls import router as monobank_router
 
 
-schema_view = get_schema_view(
-   openapi.Info(
-      title="DonateUA private API",
-      default_version='v1',
-   ),
-   public=True,
-   permission_classes=[AllowAny],
-)
-
-
 router = routers.DefaultRouter(trailing_slash=False)
 
 router.registry.extend(storage_router.registry)
@@ -36,7 +26,19 @@ urlpatterns = [
 
     path('', include(router.urls)),
 
-    re_path('api-schema', schema_view.with_ui('swagger', cache_timeout=0), name='schema-view'),
     *users_urlpatterns,  # TODO: refactor
     *static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
 ]
+
+
+if settings.DEBUG:
+    schema_view = get_schema_view(
+       openapi.Info(
+          title="DonateUA private API",
+          default_version='v1',
+       ),
+       public=True,
+       permission_classes=[AllowAny],  # TODO: Remove schema before deploy
+    )
+
+    urlpatterns += re_path('api-schema', schema_view.with_ui('swagger', cache_timeout=0), name='schema-view'),

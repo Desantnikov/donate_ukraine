@@ -8,6 +8,7 @@ from monobank.models import MonobankJar
 from monobank.serializers import MonobankJarSerializer
 
 
+# TODO: Remove this view
 class MonobankJarViewSet(GenericViewSet, ListModelMixin, RetrieveModelMixin):
     permission_classes = [IsAuthenticated]
     queryset = MonobankJar.objects.all()

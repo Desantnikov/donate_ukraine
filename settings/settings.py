@@ -31,9 +31,9 @@ INSTALLED_APPS = [
     "pytest_django",
     "corsheaders",
     "rest_framework",
-    "rest_framework_roles",
     "rest_framework_simplejwt.token_blacklist",
     "drf_yasg",
+    "guardian",
     "users",
     "donate_ukraine",
     "storage",
@@ -41,9 +41,6 @@ INSTALLED_APPS = [
     "mixins",
 ]
 
-REST_FRAMEWORK_ROLES = {
-    "ROLES": "users.roles.ROLES",
-}
 
 SITE_ID = 1
 MIDDLEWARE = [
@@ -105,7 +102,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 REST_FRAMEWORK = {
     # 'DEFAULT_PERMISSIONS_CLASSES': [
-    #     'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    #     "rest_framework.permissions.IsAuthenticated",
+    #     "rest_framework.permissions.DjangoObjectPermissions",
     # ],
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework_simplejwt.authentication.JWTAuthentication",
@@ -116,6 +114,7 @@ REST_FRAMEWORK = {
 
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
+    "guardian.backends.ObjectPermissionBackend",
 ]
 
 ACCOUNT_AUTHENTICATION_METHOD = "username"

@@ -22,6 +22,8 @@ pytest-django = "*"
 pyyaml = "*"
 uritemplate = "*"
 drf-yasg = "*"
+django-protector = "*"
+django-guardian = "*"
 
 [dev-packages]
 black = "*"

@@ -16,12 +16,6 @@ class UserSerializer(ModelSerializer):
     def save(self, **kwargs):
         user_data = copy.copy(self.validated_data)
 
-        # m2m fields can't be set during creation
-        groups = user_data.pop("groups", [])
-        user_permissions = user_data.pop("user_permissions", [])
-
         user = User.objects.create_user(**user_data)
-        user.groups.set(groups)
-        user.user_permissions.set(user_permissions)
 
         return user

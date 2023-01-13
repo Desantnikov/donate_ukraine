@@ -9,9 +9,11 @@ from mixins.views import ListCreateRetrieveUpdateMixin
 from users.serializers import UserSerializer
 from users.models import User
 
+# from guardian.models import
+#
+
 
 class UserViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin):  # TODO: remove list all users
-    permission_classes = [AllowAny]
     queryset = User.objects.all()
     serializer_class = UserSerializer
 

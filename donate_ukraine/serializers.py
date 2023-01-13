@@ -1,4 +1,4 @@
-from rest_framework.serializers import ModelSerializer, CharField, URLField
+from rest_framework.serializers import ModelSerializer, CharField, URLField, ValidationError
 
 from donate_ukraine.models import Lot
 from storage.serializers import ImageSerializer
@@ -25,16 +25,12 @@ class LotListSerializer(ModelSerializer):
 
 
 class LotCreateSerializer(ModelSerializer):
-    monobank_jar_title = CharField()  # should be a readonly=True, but they are not shown in api schema in that case
+    monobank_jar_title = CharField()
     monobank_jar_link = URLField()
 
     class Meta:
         model = Lot
-
-        exclude = [
-            "creator",  # creator (user) should be parsed from JWT token
-            "monobank_jar",  # title and link instead
-        ]
+        fields = ["name", "description", "ending_date", "monobank_jar_title", "monobank_jar_link"]
 
     def to_internal_value(self, data):
         monobank_jar = MonobankJar(

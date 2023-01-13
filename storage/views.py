@@ -7,7 +7,5 @@ from storage.serializers import ImageSerializer
 
 
 class LotImageViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin):
-    permission_classes = [IsAuthenticated]
-
     serializer_class = ImageSerializer
     queryset = LotImage.objects.all()

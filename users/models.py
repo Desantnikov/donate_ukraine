@@ -1,4 +1,9 @@
-from django.contrib.auth.models import UserManager as DjangoUserManager, AbstractUser
+from django.contrib.auth.models import (
+    UserManager as DjangoUserManager,
+    AbstractBaseUser,
+    PermissionsMixin,
+    AbstractUser,
+)
 from django.db import models
 
 from mixins.models import ModeratableModelMixin
