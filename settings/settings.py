@@ -33,9 +33,8 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework_simplejwt.token_blacklist",
     "drf_yasg",
-    "guardian",
     "users",
-    "donate_ukraine",
+    "lots",
     "storage",
     "monobank",
     "mixins",
@@ -98,12 +97,12 @@ AUTH_PASSWORD_VALIDATORS = [
     # {
     #     "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     # },
-]
+]  #
 
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticated",
-        "permissions.AllPermissionsSeparately",
+        "users.permissions.AllPermissionsSeparately",
     ],
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework_simplejwt.authentication.JWTAuthentication",
@@ -114,7 +113,6 @@ REST_FRAMEWORK = {
 
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
-    "guardian.backends.ObjectPermissionBackend",
 ]
 
 ACCOUNT_AUTHENTICATION_METHOD = "username"

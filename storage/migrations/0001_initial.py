@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ("donate_ukraine", "0001_initial"),
+        ("lots", "0001_initial"),
     ]
 
     operations = [

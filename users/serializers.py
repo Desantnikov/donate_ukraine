@@ -2,7 +2,7 @@ import copy
 
 from rest_framework.serializers import ModelSerializer
 
-from donate_ukraine.serializers import LotDetailsSerializer
+from lots.serializers import LotDetailsSerializer
 from users.models import User
 
 

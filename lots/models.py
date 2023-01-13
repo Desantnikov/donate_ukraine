@@ -5,7 +5,6 @@ from django.db import models
 from monobank.models import MonobankJar
 from users.models import User
 from mixins.models import ModeratableModelMixin
-from guardian.models import UserObjectPermission
 
 
 class Lot(ModeratableModelMixin):

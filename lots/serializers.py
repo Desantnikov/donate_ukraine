@@ -1,6 +1,6 @@
 from rest_framework.serializers import ModelSerializer, CharField, URLField, ValidationError
 
-from donate_ukraine.models import Lot
+from lots.models import Lot
 from storage.serializers import ImageSerializer
 from monobank.models import MonobankJar
 from monobank.serializers import MonobankJarSerializer

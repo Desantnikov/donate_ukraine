@@ -1,10 +1,10 @@
 from rest_framework.viewsets import GenericViewSet
 
 from mixins.views import ListCreateRetrieveUpdateMixin
-from donate_ukraine.models import Lot
-from donate_ukraine.serializers import LotCreateSerializer, LotDetailsSerializer, LotListSerializer
+from lots.models import Lot
+from lots.serializers import LotCreateSerializer, LotDetailsSerializer, LotListSerializer
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
-from permissions import AllPermissionsSeparately
+from users.permissions import AllPermissionsSeparately
 
 
 class LotListCreateRetrieveViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin):

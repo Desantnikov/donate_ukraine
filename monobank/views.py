@@ -1,4 +1,4 @@
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAdminUser
 from rest_framework.viewsets import GenericViewSet
 
 from mixins.views import ListModelMixin, RetrieveModelMixin
@@ -10,7 +10,7 @@ from monobank.serializers import MonobankJarSerializer
 
 # TODO: Remove this view
 class MonobankJarViewSet(GenericViewSet, ListModelMixin, RetrieveModelMixin):
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAdminUser]
 
     queryset = MonobankJar.objects.all()
     serializer_class = MonobankJarSerializer

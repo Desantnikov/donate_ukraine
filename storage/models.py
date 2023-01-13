@@ -1,6 +1,6 @@
 from django.db import models
 
-from donate_ukraine.models import Lot
+from lots.models import Lot
 
 
 class LotImage(models.Model):
