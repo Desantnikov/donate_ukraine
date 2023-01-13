@@ -12,12 +12,11 @@ class UserManager(DjangoUserManager):
 
 
 class User(AbstractUser, ModeratableModelMixin):
-    REQUIRED_FIELDS = ["password", "api_token"]
+    REQUIRED_FIELDS = ["first_name", "last_name", "password", "phone_number", "api_token"]
 
     objects = UserManager()
 
     # to fetch data from auction creator's monobank jar
     api_token = models.CharField(max_length=60, null=False)  # encrypt
-    role = models.CharField(max_length=20, default="user")
 
     phone_number = models.CharField(max_length=20, default="")  # needed for moderation
