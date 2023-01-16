@@ -6,7 +6,7 @@ from mixins.models import ModeratableModelMixin
 
 class UserManager(DjangoUserManager):
     def create_superuser(self, *args, **kwargs):
-        user = super().create_superuser(role="admin", *args, **kwargs)
+        user = super().create_superuser(*args, **kwargs)
 
         return user
 
