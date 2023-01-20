@@ -73,16 +73,33 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "wsgi.application"
 
+# local db
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql_psycopg2",
+#         "NAME": "postgres",
+#         "USER": "postgres",
+#         "PASSWORD": "postgres",
+#         "HOST": "db" if IS_COMPOSE else "172.18.0.2",
+#         "PORT": "5432",
+#     },
+# }
+
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "postgres",
-        "USER": "postgres",
-        "PASSWORD": "postgres",
-        "HOST": "db" if IS_COMPOSE else "172.18.0.2",
-        "PORT": "5432",
-    },
+        "ENGINE": "django.db.backends.postgresql",
+        "HOST": os.environ.get("POSTGRES_HOST", "localhost"),
+        "NAME": os.environ.get("POSTGRES_DB", "db_name"),
+        "USER": os.environ.get("POSTGRES_USER", "username"),
+        "PASSWORD": os.environ.get("POSTGRES_PASSWORD", "password"),
+        "PORT": os.environ.get("POSTGRES_PORT", "5432"),
+    }
 }
+
+import dj_database_url
+
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES["default"].update(db_from_env)
 
 AUTH_PASSWORD_VALIDATORS = [
     # {
