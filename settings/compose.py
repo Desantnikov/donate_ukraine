@@ -3,12 +3,8 @@ from datetime import timedelta
 from pathlib import Path
 
 
-# `compose` means app was launched by `docker-compose up`
-# `regular` means app was launched outside of container (by pycharm button or regular `manage.py runserver`)
-LAUNCH_MODE = os.getenv("LAUNCH_MODE", "compose").lower()
+IS_HEROKU = False
 
-IS_COMPOSE = LAUNCH_MODE == "compose"
-IS_REGULAR = LAUNCH_MODE == "regular"
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -17,7 +13,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # TODO: CHANGE SECRET KEY BEFORE FINAL DEPLOY
 SECRET_KEY = "django-insecure-04_7wq%!3o4p9+5he^^v#_ddgc4wh08xc9zb0@hk_hooq$=gx_"
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 ALLOWED_HOSTS = ["*"]
 
@@ -81,7 +76,7 @@ DATABASES = {
         "NAME": "postgres",
         "USER": "postgres",
         "PASSWORD": "postgres",
-        "HOST": "db" if IS_COMPOSE else "172.18.0.2",
+        "HOST": "db",  # change to local ip if db launched in docker container while ajdngo app outside
         "PORT": "5432",
     },
 }

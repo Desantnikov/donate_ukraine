@@ -5,7 +5,7 @@ pytest .
 
 
 To deploy on heroku
-heroku config:set DJANGO_SETTINGS_MODULE=settings.settings
+heroku config:set DJANGO_SETTINGS_MODULE=settings.heroku
 
 Migrations on heroku
 heroku run python manage.py migrate
