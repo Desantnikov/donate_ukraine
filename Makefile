@@ -1,9 +1,6 @@
 bash:
 	docker-compose exec donate_ukraine bash -c "export COLUMNS=`tput cols`; export LINES=`tput lines`; exec bash"
 
-heroku-bash:
-	heroku run bash
-
 shell:
 	docker-compose exec donate_ukraine /code/manage.py shell
 
@@ -12,20 +9,9 @@ superuser:
 
 migrations:
 	docker-compose exec donate_ukraine /code/manage.py makemigrations
-#	docker-compose exec donate_ukraine /code/manage.py makemigrations lots
-#	docker-compose exec donate_ukraine /code/manage.py makemigrations users
-#	docker-compose exec donate_ukraine /code/manage.py makemigrations storage
-#	docker-compose exec donate_ukraine /code/manage.py makemigrations monobank
-
 
 migrate:
 	docker-compose exec donate_ukraine /code/manage.py migrate
-#	docker-compose exec donate_ukraine /code/manage.py migrate donate_ukraine
-#	docker-compose exec donate_ukraine /code/manage.py migrate monobank
-#	docker-compose exec donate_ukraine /code/manage.py migrate storage
-#	docker-compose exec donate_ukraine /code/manage.py migrate users
-	# Works for Windows:
-	# docker-compose exec donate_ukraine python manage.py migrate
 
 drop-db:
 	docker-compose exec donate_ukraine /code/manage.py flush
@@ -51,3 +37,20 @@ fix-files-ownership:
 
 tests:
 	docker-compose exec donate_ukraine pytest .
+
+# -------------------- HEROKU COMMANDS -------------
+
+heroku-bash:
+	heroku run bash
+
+heroku-shell:
+	heroku run python ./manage.py shell
+
+heroku-superuser:
+	python ./manage.py createsuperuser  --username=root --password=12345678
+
+heroku-migrate:
+	heroku run python ./manage.py migrate
+
+heroku-drop-db:
+	heroku run python ./manage.py flush
