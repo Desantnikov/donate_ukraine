@@ -31,6 +31,8 @@ build:
 	docker build . -t donate_ukraine
 
 run:
+	echo 'DON`T FORGET TO CHANGE SECRET KEY BEFORE FINAL DEPLOY'
+	sleep 2
 	docker-compose up
 
 run-db:

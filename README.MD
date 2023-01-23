@@ -10,3 +10,9 @@ heroku config:set DJANGO_SETTINGS_MODULE=settings.settings
 Migrations on heroku
 heroku run python manage.py migrate
 heroku run python manage.py createsuperuser
+
+
+####
+DATABASE SECTION HAS TO BE UNCOMMENTED BEFORE DEPLOY
+
+SECRET KEY HAS TO BE CHANGED BEFORE FINAL DEPLOY
