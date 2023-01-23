@@ -4,7 +4,6 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "*"
 djangorestframework = "*"
 psycopg2-binary = "*"
 pillow = "*"
@@ -26,6 +25,7 @@ django-protector = "*"
 gunicorn = "*"
 dj-database-url = "*"
 django-on-heroku = "*"
+django = "==3.2.10"
 
 [dev-packages]
 black = "*"
