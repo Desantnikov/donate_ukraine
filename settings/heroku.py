@@ -11,10 +11,9 @@ IS_HEROKU = True
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", None)
+if SECRET_KEY := os.getenv("DJANGO_SECRET_KEY") is None:
+    raise ValueError("DJANGO_SECRET_KEY")
 
-if SECRET_KEY is None:
-    raise ValueError("\r\nDJANGO_SECRET_KEY not set\r\n")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -163,3 +162,8 @@ STATIC_URL = "/static/"
 
 AUTH_USER_MODEL = "users.User"
 CUSTOM_USER_MODEL = "users.User"
+
+
+import django_on_heroku
+
+django_on_heroku.settings(locals())

@@ -25,6 +25,7 @@ drf-yasg = "*"
 django-protector = "*"
 gunicorn = "*"
 dj-database-url = "*"
+django-on-heroku = "*"
 
 [dev-packages]
 black = "*"

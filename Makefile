@@ -1,6 +1,9 @@
 bash:
 	docker-compose exec donate_ukraine bash -c "export COLUMNS=`tput cols`; export LINES=`tput lines`; exec bash"
 
+heroku-bash:
+	heroku run bash
+
 shell:
 	docker-compose exec donate_ukraine /code/manage.py shell
 
@@ -31,8 +34,6 @@ build:
 	docker build . -t donate_ukraine
 
 run:
-	echo 'DON`T FORGET TO CHANGE SECRET KEY BEFORE FINAL DEPLOY'
-	sleep 2
 	docker-compose up
 
 run-db:
