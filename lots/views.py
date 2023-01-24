@@ -10,7 +10,6 @@ from users.permissions import AllPermissionsSeparately
 
 class LotListCreateRetrieveUpdateViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin):
     permission_classes = [IsAuthenticatedOrReadOnly | AllPermissionsSeparately]
-    authentication_classes = []
     queryset = Lot.objects.filter()
 
     ACTION_TO_SERIALIZER_MAP = {

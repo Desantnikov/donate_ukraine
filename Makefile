@@ -5,7 +5,7 @@ shell:
 	docker-compose exec donate_ukraine /code/manage.py shell
 
 superuser:
-	docker-compose exec donate_ukraine /code/manage.py createsuperuser  --username=root --password=12345678
+	docker-compose exec donate_ukraine /code/manage.py createsuperuser  --username=root --password=12345678 --first_name=John --last_name=Doe --phone_number=+380667829374
 
 migrations:
 	docker-compose exec donate_ukraine /code/manage.py makemigrations
@@ -56,7 +56,7 @@ heroku-shell:
 	heroku run python ./manage.py shell
 
 heroku-superuser:
-	heroku run python ./manage.py createsuperuser  --username=root --password=12345678 --first_name=John --last_name=Doe
+	heroku run python ./manage.py createsuperuser  --username=root --password=12345678 --first_name=John --last_name=Doe --phone_number=+380667829374
 
 heroku-migrate:
 	heroku run python ./manage.py migrate
