@@ -4,6 +4,8 @@ import pytest
 from django.test.client import Client
 from django.urls import reverse
 
+from users.models import User
+
 
 @pytest.fixture
 def test_user_data():
@@ -19,6 +21,11 @@ def test_user_data():
 @pytest.fixture
 def admin_user_credentials(admin_user):
     return {"username": admin_user.username, "password": "password"}
+
+
+@pytest.fixture
+def test_user_instance(test_user_data):
+    return User.objects.create(**test_user_data)
 
 
 @pytest.fixture
