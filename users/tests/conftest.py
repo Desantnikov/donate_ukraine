@@ -1,6 +1,19 @@
+import json
+
 import pytest
 from django.test.client import Client
 from django.urls import reverse
+
+
+@pytest.fixture
+def test_user_data():
+    return {
+        "username": "test",
+        "password": "pass",
+        "email": "test@test.com",
+        "phone_number": "1231231231",
+        "api_token": "123testapitoken123",
+    }
 
 
 @pytest.fixture

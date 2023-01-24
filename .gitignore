@@ -6,3 +6,4 @@ media
 .pytest_cache
 static
 staticfiles
+images

@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "14748cad11d4415940aeea5a81aa0928666c89f60dd1f4bf4cca7a45295d490c"
+            "sha256": "10ffb7573ea5b776686dbe995096bfa8851b3316ce89926c9d06cc99ac8baa7d"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -408,6 +408,13 @@
             ],
             "index": "pypi",
             "version": "==3.13.0"
+        },
+        "django-fernet-fields": {
+            "hashes": [
+                "sha256:7f7e03c86d9473a42031ebade2b15be1484aad18ef5576ddab156c4667e04c4a"
+            ],
+            "index": "pypi",
+            "version": "==0.6"
         },
         "django-js-asset": {
             "hashes": [

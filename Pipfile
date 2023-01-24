@@ -28,6 +28,7 @@ django-on-heroku = "*"
 django = "==3.2.10"
 boto3 = "*"
 django-storages = "*"
+django-fernet-fields = "*"
 
 [dev-packages]
 black = "*"

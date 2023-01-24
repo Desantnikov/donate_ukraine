@@ -13,7 +13,7 @@ migrations:
 migrate:
 	docker-compose exec donate_ukraine /code/manage.py migrate
 
-drop-db:
+clear-db:
 	docker-compose exec donate_ukraine /code/manage.py flush
 
 build:
@@ -36,7 +36,13 @@ fix-files-ownership:
 	sudo chmod -R 777 ./users/migrations/
 
 tests:
+	export DJANGO_SETTINGS_MODULE=settings.compose
 	docker-compose exec donate_ukraine pytest .
+
+lint:
+	isort .
+	black .
+	flake8 .
 
 # -------------------- HEROKU COMMANDS -------------
 
