@@ -63,3 +63,21 @@ class LotCreateSerializer(ModelSerializer):
 
     def to_representation(self, instance):
         return {"id": instance.pk}
+
+
+class LotPartialUpdateSerializer(ModelSerializer):
+    monobank_jar_link = CharField(required=False)
+
+    class Meta:
+        model = Lot
+        fields = "__all__"
+
+    # def validate(self, attrs):
+    #     # TODO: make request to mono api to check if sendId/api-key are real
+    #     return super().validate(attrs)
+    #
+    # def update(self, instance, validated_data):
+    #     return super().update(instance, validated_data)
+    #
+    # def to_representation(self, instance):
+    #     return {"id": instance.pk}

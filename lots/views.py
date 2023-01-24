@@ -3,20 +3,21 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.viewsets import GenericViewSet
 
 from lots.models import Lot
-from lots.serializers import LotCreateSerializer, LotDetailsSerializer, LotListSerializer
+from lots.serializers import LotCreateSerializer, LotDetailsSerializer, LotListSerializer, LotPartialUpdateSerializer
 from mixins.views import ListCreateRetrieveUpdateMixin
 from users.permissions import AllPermissionsSeparately
 
 
 class LotListCreateRetrieveUpdateViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin):
     permission_classes = [IsAuthenticatedOrReadOnly | AllPermissionsSeparately]
+    authentication_classes = []
     queryset = Lot.objects.filter()
 
     ACTION_TO_SERIALIZER_MAP = {
         "retrieve": LotDetailsSerializer,
         "list": LotListSerializer,
         "create": LotCreateSerializer,
-        "partial_update": LotCreateSerializer,
+        "partial_update": LotPartialUpdateSerializer,
         "update": LotCreateSerializer,
     }
 
