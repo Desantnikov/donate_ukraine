@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     "storage",
     "monobank",
     "mixins",
+    "storages",
 ]
 
 
@@ -157,14 +158,32 @@ SIMPLE_JWT = {
     "ROTATE_REFRESH_TOKENS": True,
 }
 
-MEDIA_URL = "/media/"
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
-STATIC_URL = "/static/"
-
 AUTH_USER_MODEL = "users.User"
 CUSTOM_USER_MODEL = "users.User"
-
 
 import django_on_heroku
 
 django_on_heroku.settings(locals())
+
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
+
+# AWS_ACCESS_KEY_ID = os.getenv()#'AKIAIT2Z5TDYPX3ARJBA'
+# AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = "donate-ua-bucket"
+AWS_S3_CUSTOM_DOMAIN = "%s.s3.amazonaws.com" % AWS_STORAGE_BUCKET_NAME
+
+AWS_S3_OBJECT_PARAMETERS = {
+    "CacheControl": "max-age=86400",
+}
+
+AWS_LOCATION = "static"
+STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"  # <-- here is where we reference it
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+# AWS_DEFAULT_ACL = 'public-read' ??

@@ -27,7 +27,6 @@ urlpatterns = [
     path('', include(router.urls)),
 
     *users_urlpatterns,  # TODO: refactor
-    *static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
 ]
 
 

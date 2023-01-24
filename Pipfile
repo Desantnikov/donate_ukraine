@@ -26,6 +26,8 @@ gunicorn = "*"
 dj-database-url = "*"
 django-on-heroku = "*"
 django = "==3.2.10"
+boto3 = "*"
+django-storages = "*"
 
 [dev-packages]
 black = "*"
@@ -37,3 +39,6 @@ click = "==8.0.4"
 
 [requires]
 python_version = "3.9"
+
+[packages.whitenoise]
+extras = [ "brotli",]

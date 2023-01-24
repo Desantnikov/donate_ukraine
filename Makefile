@@ -57,3 +57,9 @@ heroku-migrate:
 
 heroku-drop-db:
 	heroku run python ./manage.py flush
+
+heroku-restart-dyno:
+	heroku dyno:restart
+
+heroku-collectstatic:
+	heroku run python ./manage.py collectstatic

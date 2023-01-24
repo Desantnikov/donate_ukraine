@@ -152,9 +152,11 @@ SIMPLE_JWT = {
     "ROTATE_REFRESH_TOKENS": True,
 }
 
-MEDIA_URL = "/media/"
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
-STATIC_URL = "/static/"
+# MEDIA_URL = "/media/"
+STATIC_HOST = "https://d8lmle86ctidl.cloudfront.net"
+# STATIC_ROOT = os.path.join(BASE_DIR, "static")
+# STATIC_URL = "/static/"
+STATIC_URL = STATIC_HOST + "/static/"
 
 AUTH_USER_MODEL = "users.User"
 CUSTOM_USER_MODEL = "users.User"
