@@ -19,7 +19,7 @@ class Lot(ModeratableModelMixin):
     ending_date = models.DateTimeField(null=True)  # auction ends when jar is full or by ending date
     monobank_jar = models.OneToOneField(MonobankJar, models.PROTECT, null=True)
 
-    is_finished = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
 
     # date_created = models.DateTimeField(default=django.utils.timezone.now)
 
