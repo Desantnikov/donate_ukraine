@@ -40,6 +40,9 @@ tests:
 
 # -------------------- HEROKU COMMANDS -------------
 
+heroku-logs:
+	heroku logs --tail
+
 heroku-bash:
 	heroku run bash
 
@@ -47,7 +50,7 @@ heroku-shell:
 	heroku run python ./manage.py shell
 
 heroku-superuser:
-	python ./manage.py createsuperuser  --username=root --password=12345678
+	heroku run python ./manage.py createsuperuser  --username=root --password=12345678 --first_name=John --last_name=Doe
 
 heroku-migrate:
 	heroku run python ./manage.py migrate

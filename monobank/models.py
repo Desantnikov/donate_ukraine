@@ -33,7 +33,9 @@ class MonobankJar(models.Model):
         self.goal = jar_data["goal"]
 
         transactions = api_wrapper.fetch_jar_transactions_by_id(self.monobank_id)
-        self.highest_bid = max([transaction["amount"] for transaction in transactions])
+
+        if transactions:
+            self.highest_bid = max([transaction["amount"] for transaction in transactions])
 
         self.last_updated = datetime.datetime.now()
 
