@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
+    "whitenoise.runserver_nostatic",
     "django.contrib.staticfiles",
     "django.contrib.sites",
     "pytest_django",
@@ -41,6 +42,7 @@ SITE_ID = 1
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",  # should be placed AFTER SecurityMiddleware
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -80,23 +82,6 @@ DATABASES = {
         "PORT": "5432",
     },
 }
-
-# TODO: UNCOMMENT BEFORE DEPLOY TO HEROKU
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         "HOST": os.environ.get("POSTGRES_HOST", "localhost"),
-#         "NAME": os.environ.get("POSTGRES_DB", "db_name"),
-#         "USER": os.environ.get("POSTGRES_USER", "username"),
-#         "PASSWORD": os.environ.get("POSTGRES_PASSWORD", "password"),
-#         "PORT": os.environ.get("POSTGRES_PORT", "5432"),
-#     }
-# }
-#
-# import dj_database_url
-#
-# db_from_env = dj_database_url.config(conn_max_age=500)
-# DATABASES["default"].update(db_from_env)
 
 AUTH_PASSWORD_VALIDATORS = [
     # {
