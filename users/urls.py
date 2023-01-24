@@ -2,7 +2,7 @@ from django.urls import path
 from rest_framework import routers
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
-from users.views import UserViewSet, LogoutViewSet
+from users.views import LogoutViewSet, UserViewSet
 
 
 router = routers.DefaultRouter(trailing_slash=False)

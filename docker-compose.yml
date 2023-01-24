@@ -29,18 +29,4 @@ services:
       - DJANGO_SETTINGS_MODULE=settings.compose
       - AWS_ACCESS_KEY_ID=AKIA3YGD4DJ7WJK3XM7X
       - AWS_SECRET_ACCESS_KEY=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
-
-#  app:
-#    build: ./donate-ua-frontend
-#    container_name: donate-ua-frontend
-#    restart: always
-#    ports:
-#      - '3000:3000'
-#    command: 'yarn start'
-
-#  nginx:
-#    build: ./donate-ua-frontend/nginx
-#    ports:
-#      - '80:80'
-#    depends_on:
-#      - app
+      - AWS_STORAGE_BUCKET_NAME=donate-ua-bucket

@@ -4,3 +4,5 @@ db.sqlite3
 postgres-data
 media
 .pytest_cache
+static
+staticfiles

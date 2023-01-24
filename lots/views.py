@@ -1,10 +1,10 @@
-from rest_framework.viewsets import GenericViewSet
 from rest_framework.exceptions import ValidationError
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.viewsets import GenericViewSet
 
-from mixins.views import ListCreateRetrieveUpdateMixin
 from lots.models import Lot
 from lots.serializers import LotCreateSerializer, LotDetailsSerializer, LotListSerializer
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from mixins.views import ListCreateRetrieveUpdateMixin
 from users.permissions import AllPermissionsSeparately
 
 
@@ -17,6 +17,7 @@ class LotListCreateRetrieveUpdateViewSet(GenericViewSet, ListCreateRetrieveUpdat
         "list": LotListSerializer,
         "create": LotCreateSerializer,
         "partial_update": LotCreateSerializer,
+        "update": LotCreateSerializer,
     }
 
     def get_serializer_class(self):

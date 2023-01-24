@@ -7,4 +7,3 @@ class ImageSerializer(ModelSerializer):
     class Meta:
         model = LotImage
         fields = "__all__"
-        # exclude = ["lot_id"]

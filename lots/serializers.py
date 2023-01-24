@@ -1,9 +1,9 @@
-from rest_framework.serializers import ModelSerializer, CharField, URLField, ValidationError
+from rest_framework.serializers import CharField, ModelSerializer, URLField
 
 from lots.models import Lot
-from storage.serializers import ImageSerializer
 from monobank.models import MonobankJar
 from monobank.serializers import MonobankJarSerializer
+from storage.serializers import ImageSerializer
 
 
 class LotDetailsSerializer(ModelSerializer):

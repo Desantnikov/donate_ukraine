@@ -1,11 +1,8 @@
 import datetime
 
-import os
-from django.conf import settings
 from django.db import models
 from django.utils.timezone import now
 
-# from donate_ukraine.models import Lot
 from monobank.api_wrapper import MonobankApiWrapper
 
 

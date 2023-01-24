@@ -1,7 +1,9 @@
 import copy
 
-from rest_framework.serializers import ModelSerializer
 from django.contrib.auth.models import Permission
+from rest_framework.response import Response
+from rest_framework.serializers import ModelSerializer, Serializer
+from rest_framework_simplejwt.tokens import RefreshToken
 
 from lots.serializers import LotDetailsSerializer
 from users.models import User
@@ -28,3 +30,10 @@ class UserSerializer(ModelSerializer):
         return user
 
     # TODO: redeclare `edit` and `destroy` so it will be checking if it's their creator
+
+
+class LogoutSerializer(Serializer):
+    def create(self, request, *args):
+        refresh = RefreshToken.for_user(request.user)
+        refresh.blacklist()
+        return Response("Logged out")

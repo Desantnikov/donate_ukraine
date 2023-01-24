@@ -1,10 +1,9 @@
-import django
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
 
+from mixins.models import ModeratableModelMixin
 from monobank.models import MonobankJar
 from users.models import User
-from mixins.models import ModeratableModelMixin
 
 
 class Lot(ModeratableModelMixin):

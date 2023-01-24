@@ -1,5 +1,6 @@
 from settings.heroku import *
 
+
 IS_HEROKU = False
 
 

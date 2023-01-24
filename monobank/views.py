@@ -2,8 +2,6 @@ from rest_framework.permissions import IsAdminUser
 from rest_framework.viewsets import GenericViewSet
 
 from mixins.views import ListModelMixin, RetrieveModelMixin
-
-
 from monobank.models import MonobankJar
 from monobank.serializers import MonobankJarSerializer
 
