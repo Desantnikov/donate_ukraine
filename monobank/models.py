@@ -1,5 +1,4 @@
-import datetime
-
+from django.utils import timezone
 from django.db import models
 from django.utils.timezone import now
 
@@ -7,14 +6,12 @@ from monobank.api_wrapper import MonobankApiWrapper
 
 
 class MonobankJar(models.Model):
-    # lot = models.ForeignKey(Lot, on_delete=models.CASCADE)
-
     title = models.CharField(max_length=40, default="")
 
     monobank_id = models.CharField(max_length=40, null=True)  # monobank id like `8OWpMMCU-Tfy11Nha66csZZE`
     send_id = models.TextField(max_length=40, default="")  # like "jar/7Rz7u9kkcy"
 
-    current_balance = models.IntegerField(default=0)
+    current_balance = models.IntegerField(default=0)  # all cash countes in coins, 5000 == 50.00$
     goal = models.IntegerField(default=0)
     highest_bid = models.IntegerField(default=0)
 
@@ -39,6 +36,6 @@ class MonobankJar(models.Model):
         if transactions:  # be sure we are not trying to take max() of empty list (if no transactions in thhat perios)
             self.highest_bid = max([transaction["amount"] for transaction in transactions])
 
-        self.last_updated = datetime.datetime.now()
+        self.last_updated = timezone.now()
 
         self.save()

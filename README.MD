@@ -16,3 +16,5 @@ heroku config:set S3_BUCKET_NAME=donate-ua-bucket
 heroku config:set DISABLE_COLLECTSTATIC=1
 
 and make collectstatic manually with make heroku-collectstatic
+
+heroku addons:create scheduler:standard
