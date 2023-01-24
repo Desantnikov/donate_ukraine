@@ -3,6 +3,7 @@
 import django.contrib.auth.validators
 import django.utils.timezone
 from django.db import migrations, models
+from fernet_fields import EncryptedTextField
 
 import users.models
 
@@ -62,8 +63,7 @@ class Migration(migrations.Migration):
                 ),
                 ("date_joined", models.DateTimeField(default=django.utils.timezone.now, verbose_name="date joined")),
                 ("is_under_moderation", models.BooleanField(default=True)),
-                ("api_token", models.CharField(max_length=60)),
-                ("role", models.CharField(default="user", max_length=20)),
+                ("api_token", EncryptedTextField(blank=True, default="")),
                 ("phone_number", models.CharField(default="", max_length=20)),
                 (
                     "groups",

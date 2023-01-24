@@ -1,6 +1,6 @@
 import pytest
 from django.urls import reverse
-from rest_framework_simplejwt.token_blacklist.models import OutstandingToken, BlacklistedToken
+from rest_framework_simplejwt.token_blacklist.models import BlacklistedToken, OutstandingToken
 
 
 @pytest.mark.django_db

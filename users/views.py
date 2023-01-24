@@ -2,10 +2,11 @@ from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
+from rest_framework_simplejwt.tokens import RefreshToken
 
 from mixins.views import ListCreateRetrieveUpdateMixin
 from users.models import User
-from users.serializers import LogoutSerializer, UserSerializer
+from users.serializers import UserSerializer
 
 
 class UserViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin):  # TODO: remove list all users
@@ -18,11 +19,10 @@ class UserViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin):  # TODO: remov
         return Response(serializer.data)
 
 
-class LogoutViewSet(GenericViewSet):
+class LogoutViewSet(GenericViewSet):  # TODO: Refactor to func-based view
     permission_classes = [IsAuthenticated]
 
-    serializer_class = LogoutSerializer
-    # def create(self, request, *args):
-    #     refresh = RefreshToken.for_user(request.user)
-    #     refresh.blacklist()
-    #     return Response("Logged out")
+    def create(self, request, *args):
+        refresh = RefreshToken.for_user(request.user)
+        refresh.blacklist()
+        return Response("Logged out")

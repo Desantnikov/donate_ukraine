@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser, UserManager as DjangoUserManager
 from django.db import models
+from fernet_fields import EncryptedTextField
 
 from mixins.models import ModeratableModelMixin
 
@@ -17,6 +18,6 @@ class User(AbstractUser, ModeratableModelMixin):
     objects = UserManager()
 
     # to fetch data from auction creator's monobank jar
-    api_token = models.CharField(max_length=60, null=False)  # encrypt
+    api_token = EncryptedTextField(blank=True, default="")  # encrypt
 
     phone_number = models.CharField(max_length=20, default="")  # needed for moderation

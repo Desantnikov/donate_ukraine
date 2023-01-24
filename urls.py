@@ -14,10 +14,11 @@ from users.urls import router as users_router, urlpatterns as users_urlpatterns
 
 router = routers.DefaultRouter(trailing_slash=False)
 
+router.registry.extend(users_router.registry)
 router.registry.extend(storage_router.registry)
 router.registry.extend(lots_router.registry)
 router.registry.extend(monobank_router.registry)
-router.registry.extend(users_router.registry)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
