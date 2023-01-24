@@ -61,8 +61,14 @@ heroku-superuser:
 heroku-migrate:
 	heroku run python ./manage.py migrate
 
-heroku-drop-db:
+heroku-clear-db:
 	heroku run python ./manage.py flush
+
+heroku-dbshell:
+	heroku run python ./manage.py dbshell
+	# Drop schema:
+	# DROP SCHEMA public CASCADE; CREATE SCHEMA public;
+	# GRANT ALL ON SCHEMA public TO postgres; GRANT ALL ON SCHEMA public TO public;
 
 heroku-restart-dyno:
 	heroku dyno:restart
