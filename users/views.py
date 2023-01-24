@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.views import APIView
 
 from mixins.views import ListCreateRetrieveUpdateMixin
 from users.models import User
