@@ -1,8 +1,5 @@
-import json
-
 import pytest
 from django.db import connection
-from django.test.client import Client
 from django.urls import reverse
 
 from users.models import User
@@ -40,8 +37,6 @@ def test_token_return(test_user_data):
 
 @pytest.mark.django_db
 def test_token_encrypt(test_user_data):
-    user = User.objects.create(**test_user_data)
-
     query_string = f"SELECT api_token FROM users_user WHERE username = '{test_user_data['username']}'"
 
     cursor = connection.cursor()

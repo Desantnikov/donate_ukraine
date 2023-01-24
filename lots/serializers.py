@@ -1,4 +1,7 @@
-from rest_framework.serializers import CharField, ModelSerializer, URLField
+import re
+
+from rest_framework.exceptions import ValidationError
+from rest_framework.serializers import CharField, ModelSerializer
 
 from lots.models import Lot
 from monobank.models import MonobankJar
@@ -25,18 +28,22 @@ class LotListSerializer(ModelSerializer):
 
 
 class LotCreateSerializer(ModelSerializer):
-    monobank_jar_title = CharField()
-    monobank_jar_link = URLField()
+    monobank_jar_link = CharField()
 
     class Meta:
         model = Lot
-        fields = ["name", "description", "ending_date", "monobank_jar_title", "monobank_jar_link"]
+        fields = ["name", "description", "ending_date", "monobank_jar_link"]
+
+    def validate(self, attrs):
+        # TODO: make request to mono api to check if sendId/api-key are real
+        return super().validate(attrs)
 
     def to_internal_value(self, data):
-        monobank_jar = MonobankJar(
-            title=data["monobank_jar_title"],
-            link=data["monobank_jar_link"],
-        )
+        send_id = re.search(r"jar/\w{10}", data["monobank_jar_link"])
+        if send_id is None:
+            raise ValidationError({"monobank_jar_link": "Invalid - no sendId found"})
+
+        monobank_jar = MonobankJar(send_id=send_id.group())
         monobank_jar.save()
 
         data = super().to_internal_value(data)
@@ -44,7 +51,6 @@ class LotCreateSerializer(ModelSerializer):
         data["creator"] = self.context["request"].user
         data["monobank_jar"] = monobank_jar
 
-        data.pop("monobank_jar_title")
         data.pop("monobank_jar_link")
 
         return data

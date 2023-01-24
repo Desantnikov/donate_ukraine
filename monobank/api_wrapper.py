@@ -1,10 +1,12 @@
 import datetime
 
 import requests
+from rest_framework.exceptions import ValidationError
 
 
 class MonobankApiWrapper:
     API_URL = "https://api.monobank.ua"
+    JAR_URL = "https://send.monobank.ua"
 
     def __init__(self, api_token):
         self.api_token = api_token
@@ -40,19 +42,20 @@ class MonobankApiWrapper:
 
         return response
 
-    def get_jar_by_title(self, title):
+    def get_jar_by_send_id(self, send_id):
         jars = self.user_info["jars"]
 
-        filtered_jars = list(filter(lambda jar: jar["title"] == title, jars))
+        filtered_jar = filter(lambda jar_data: jar_data["sendId"] == send_id, jars)
+        jar = next(filtered_jar, None)
 
-        if len(jars) > 1:
-            raise Exception("User has more than one jars with such title")
-
-        return filtered_jars[0] if filtered_jars else None
+        return jar
 
     @staticmethod
     def raise_errors(response: dict):
         if "errorDescription" not in response:
             return
 
-        raise Exception(f"Error from mono api: {response['errorDescription']}")
+        if response["errorDescription"] == "Unknown 'X-Token'":
+            raise ValidationError({"api_token": "Could not authorize to monobank api with this token"})
+
+        raise ValidationError({"monobank_api_error": response["errorDescription"]})
