@@ -11,9 +11,7 @@ IS_HEROKU = True
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-if SECRET_KEY := os.getenv("DJANGO_SECRET_KEY") is None:
-    raise ValueError("DJANGO_SECRET_KEY")
-
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -170,8 +168,10 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
-# AWS_ACCESS_KEY_ID = os.getenv()#'AKIAIT2Z5TDYPX3ARJBA'
-# AWS_SECRET_ACCESS_KEY = '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'
+AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
+
+
 AWS_STORAGE_BUCKET_NAME = "donate-ua-bucket"
 AWS_S3_CUSTOM_DOMAIN = "%s.s3.amazonaws.com" % AWS_STORAGE_BUCKET_NAME
 
