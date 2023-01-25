@@ -12,7 +12,7 @@ class Command(BaseCommand):
         parser.add_argument("--filter_by_is_active", default=True, help="Update deactivated lots also")
         parser.add_argument("--filter_by_is_under_moderation", default=True, help="Update under moderation lots also")
         parser.add_argument("--all", default=True, help="Update all lots")
-        parser.add_argument("--delay", default=10, help="Delay between update requests")
+        parser.add_argument("--delay", default=30, help="Delay between update requests")
 
     def handle(self, *args, **options):
         update_all = options["all"]

@@ -1,9 +1,7 @@
 import copy
 
 from django.contrib.auth.models import Permission
-from rest_framework.response import Response
-from rest_framework.serializers import ModelSerializer, Serializer
-from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.serializers import ModelSerializer
 
 from lots.serializers import LotDetailsSerializer
 from users.models import User
