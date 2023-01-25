@@ -38,4 +38,4 @@ class MonobankJar(models.Model):
 
         self.last_updated = timezone.now()
 
-        self.save()
+        # self.save()

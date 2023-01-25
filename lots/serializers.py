@@ -3,6 +3,7 @@ import re
 from rest_framework.exceptions import ValidationError
 from rest_framework.serializers import CharField, ModelSerializer
 
+
 from lots.models import Lot
 from monobank.models import MonobankJar
 from monobank.serializers import MonobankJarSerializer
@@ -36,6 +37,9 @@ class LotCreateSerializer(ModelSerializer):
 
     def validate(self, attrs):
         # TODO: make request to mono api to check if sendId/api-key are real
+        if not self.context["request"].user.api_token:
+            raise ValidationError({"api_token": "to create a lot you have to set your monobank api-token"})
+
         return super().validate(attrs)
 
     def to_internal_value(self, data):
@@ -44,7 +48,6 @@ class LotCreateSerializer(ModelSerializer):
             raise ValidationError({"monobank_jar_link": "Invalid - no sendId found"})
 
         monobank_jar = MonobankJar(send_id=send_id.group())
-        monobank_jar.save()
 
         data = super().to_internal_value(data)
 
