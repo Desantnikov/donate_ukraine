@@ -1,4 +1,4 @@
-from rest_framework.permissions import DjangoModelPermissions
+from rest_framework.permissions import DjangoModelPermissions, AllowAny, BasePermission
 
 
 class AllPermissionsSeparately(DjangoModelPermissions):
@@ -11,3 +11,12 @@ class AllPermissionsSeparately(DjangoModelPermissions):
         "PATCH": ["%(app_label)s.change_%(model_name)s"],
         "DELETE": ["%(app_label)s.delete_%(model_name)s"],
     }
+
+
+# specifically for the UserViewSet - anyone can register,
+class AnyoneCanCreateOtherDepends(AllPermissionsSeparately):
+    def has_permission(self, request, view):
+        if request.method == "POST":
+            return True
+
+        return super(AnyoneCanCreateOtherDepends, self).has_permission(request, view)

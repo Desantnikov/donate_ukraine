@@ -1,11 +1,10 @@
 from rest_framework.decorators import action
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import IsAuthenticated, AllowAny, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework.parsers import JSONParser
 from rest_framework.viewsets import GenericViewSet, ViewSet
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.views import APIView
+from users.permissions import AllPermissionsSeparately, AnyoneCanCreateOtherDepends
 
 from mixins.views import ListCreateRetrieveUpdateMixin
 from users.models import User
@@ -13,6 +12,8 @@ from users.serializers import UserSerializer
 
 
 class UserViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin):  # TODO: remove list all users
+    permission_classes = [AnyoneCanCreateOtherDepends]
+
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
