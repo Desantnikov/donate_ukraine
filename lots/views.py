@@ -27,6 +27,6 @@ class LotListCreateRetrieveUpdateViewSet(GenericViewSet, ListCreateRetrieveUpdat
         is_creator = self.get_object().creator == request.user
 
         if not any([is_creator, request.user.is_superuser]):
-            raise ValidationError("Only lot creator can modify it")
+            raise ValidationError({"user": "Only lot creator can modify it"})
 
         return super().update(request, *args, **kwargs)
