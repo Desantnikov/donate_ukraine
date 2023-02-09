@@ -40,6 +40,7 @@ class LotCreateSerializer(ModelSerializer):
         if not self.context["request"].user.api_token:
             raise ValidationError({"api_token": "to create a lot you have to set your monobank api-token"})
 
+        # TODO: validate that end-date is not earlier than now
         return super().validate(attrs)
 
     def to_internal_value(self, data):
@@ -48,6 +49,7 @@ class LotCreateSerializer(ModelSerializer):
             raise ValidationError({"monobank_jar_link": "Invalid - no sendId found"})
 
         monobank_jar = MonobankJar(send_id=send_id.group())
+        monobank_jar.save()
 
         data = super().to_internal_value(data)
 
