@@ -3,12 +3,12 @@ import copy
 from django.contrib.auth.models import Permission
 from rest_framework.serializers import ModelSerializer
 
-from lots.serializers import LotDetailsSerializer
+from lots.serializers import LotListRetrieveSerializer
 from users.models import User
 
 
 class UserSerializer(ModelSerializer):
-    lots = LotDetailsSerializer(source="lot_set", many=True, required=False)
+    lots = LotListRetrieveSerializer(source="lot_set", many=True, required=False)
 
     class Meta:
         model = User

@@ -4,7 +4,7 @@ from rest_framework.viewsets import GenericViewSet
 from django.db import transaction
 
 from lots.models import Lot
-from lots.serializers import LotCreateSerializer, LotDetailsSerializer, LotListSerializer, LotPartialUpdateSerializer
+from lots.serializers import LotCreateSerializer, LotListRetrieveSerializer, LotPartialUpdateSerializer
 from mixins.views import ListCreateRetrieveUpdateMixin
 from users.permissions import AllPermissionsSeparately
 
@@ -14,8 +14,8 @@ class LotListCreateRetrieveUpdateViewSet(GenericViewSet, ListCreateRetrieveUpdat
     queryset = Lot.objects.filter()
 
     ACTION_TO_SERIALIZER_MAP = {
-        "retrieve": LotDetailsSerializer,
-        "list": LotListSerializer,
+        "retrieve": LotListRetrieveSerializer,
+        "list": LotListRetrieveSerializer,
         "create": LotCreateSerializer,
         "partial_update": LotPartialUpdateSerializer,
         "update": LotCreateSerializer,

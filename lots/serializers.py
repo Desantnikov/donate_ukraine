@@ -10,17 +10,8 @@ from monobank.serializers import MonobankJarSerializer
 from storage.serializers import ImageSerializer
 
 
-class LotDetailsSerializer(ModelSerializer):
+class LotListRetrieveSerializer(ModelSerializer):
     photos = ImageSerializer(source="lotimage_set", many=True)
-    monobank_jar = MonobankJarSerializer()
-
-    class Meta:
-        model = Lot
-        fields = "__all__"
-
-
-class LotListSerializer(ModelSerializer):
-    photo = ImageSerializer(source="lotimage_set.first", many=False)
     monobank_jar = MonobankJarSerializer()
 
     class Meta:
