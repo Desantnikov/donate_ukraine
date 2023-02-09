@@ -16,10 +16,12 @@ class CustomPagination(PageNumberPagination):
 
         return Response(
             {
-                "current_page": self.page.number,
-                "next_page": next_page_url,
-                "previous_page": previous_page_url,
-                "total_pages": self.page.paginator.count,
+                "pagination": {
+                    "current": self.page.number,
+                    "next": next_page_url,
+                    "previous": previous_page_url,
+                    "total": self.page.paginator.count,
+                },
                 "results": data,
             }
         )
