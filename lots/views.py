@@ -11,7 +11,7 @@ from users.permissions import AllPermissionsSeparately
 
 class LotListCreateRetrieveUpdateViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin):
     permission_classes = [IsAuthenticatedOrReadOnly | AllPermissionsSeparately]
-    queryset = Lot.objects.filter(is_under_moderation=False, is_active=False)
+    queryset = Lot.objects.filter(is_under_moderation=False, is_active=True)
 
     ACTION_TO_SERIALIZER_MAP = {
         "retrieve": LotListRetrieveSerializer,
