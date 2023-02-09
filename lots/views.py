@@ -5,13 +5,13 @@ from django.db import transaction
 
 from lots.models import Lot
 from lots.serializers import LotCreateSerializer, LotListRetrieveSerializer, LotPartialUpdateSerializer
-from mixins.views import ListCreateRetrieveUpdateMixin
+from mixins.views import ListCreateRetrieveUpdateMixin, ListRetrieveMixin
 from users.permissions import AllPermissionsSeparately
 
 
 class LotListCreateRetrieveUpdateViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin):
     permission_classes = [IsAuthenticatedOrReadOnly | AllPermissionsSeparately]
-    queryset = Lot.objects.filter()
+    queryset = Lot.objects.filter(is_under_moderation=False, is_active=False)
 
     ACTION_TO_SERIALIZER_MAP = {
         "retrieve": LotListRetrieveSerializer,
@@ -36,3 +36,9 @@ class LotListCreateRetrieveUpdateViewSet(GenericViewSet, ListCreateRetrieveUpdat
             raise ValidationError({"user": "Only lot creator can modify it"})
 
         return super().update(request, *args, **kwargs)
+
+
+class LotListRetrieveUpdateViewSet(GenericViewSet, ListRetrieveMixin):
+    permission_classes = [IsAuthenticatedOrReadOnly | AllPermissionsSeparately]
+    serializer_class = LotListRetrieveSerializer
+    queryset = Lot.objects.all()
