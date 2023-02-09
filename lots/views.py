@@ -41,4 +41,7 @@ class LotListCreateRetrieveUpdateViewSet(GenericViewSet, ListCreateRetrieveUpdat
 class LotListRetrieveUpdateViewSet(GenericViewSet, ListRetrieveMixin):
     permission_classes = [IsAuthenticatedOrReadOnly | AllPermissionsSeparately]
     serializer_class = LotListRetrieveSerializer
-    queryset = Lot.objects.all()
+    # queryset = Lot.objects.all()
+
+    def get_queryset(self):
+        return Lot.objects.filter(creator=self.request.user)

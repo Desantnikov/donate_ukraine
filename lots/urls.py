@@ -6,4 +6,4 @@ from lots.views import LotListCreateRetrieveUpdateViewSet, LotListRetrieveUpdate
 router = routers.DefaultRouter(trailing_slash=False)
 
 router.register('lots', LotListCreateRetrieveUpdateViewSet, basename='lots')
-router.register('my', LotListRetrieveUpdateViewSet, basename='lots/my')
+router.register('my-lots', LotListRetrieveUpdateViewSet, basename='lots/my')
