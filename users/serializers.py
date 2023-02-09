@@ -23,7 +23,10 @@ class UserSerializer(ModelSerializer):
         ).values_list("id", flat=True)
 
         user = User.objects.create_user(**user_data)
-        user.user_permissions.add(*permissions)
+
+        # uncomment for testing - on prod newly created user has no permissions
+        # they should be granted manually after moderation
+        # user.user_permissions.add(*permissions)
 
         return user
 
