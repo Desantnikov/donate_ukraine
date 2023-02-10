@@ -1,6 +1,8 @@
 from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.viewsets import GenericViewSet
+from rest_framework.mixins import DestroyModelMixin
+from rest_framework.response import Response
 from django.db import transaction
 
 from lots.models import Lot
@@ -9,7 +11,7 @@ from mixins.views import ListCreateRetrieveUpdateMixin, ListRetrieveMixin
 from users.permissions import AllPermissionsSeparately
 
 
-class LotListCreateRetrieveUpdateViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin):
+class LotListCreateRetrieveUpdateViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin, DestroyModelMixin):
     permission_classes = [IsAuthenticatedOrReadOnly | AllPermissionsSeparately]
     queryset = Lot.objects.filter(is_under_moderation=False, is_active=True)
 
@@ -36,6 +38,12 @@ class LotListCreateRetrieveUpdateViewSet(GenericViewSet, ListCreateRetrieveUpdat
             raise ValidationError({"user": "Only lot creator can modify it"})
 
         return super().update(request, *args, **kwargs)
+
+    def destroy(self, request, *args, **kwargs):
+        lot = self.get_object()
+        lot.is_under_moderation = True
+        lot.save()
+        return Response("sent for moderation")
 
 
 class LotListRetrieveUpdateViewSet(GenericViewSet, ListRetrieveMixin):

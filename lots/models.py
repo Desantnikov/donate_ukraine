@@ -24,5 +24,5 @@ class Lot(ModeratableModelMixin):
     # date_created = models.DateTimeField(default=django.utils.timezone.now)
 
     # TODO: move report to separate model?
-    report_text = models.CharField(max_length=512, default="")
-    report_images = ArrayField(models.ImageField(upload_to="static"), default=list)
+    report_text = models.CharField(max_length=512, default="", blank=True)
+    report_images = ArrayField(models.ImageField(upload_to="static"), default=list, blank=True)
