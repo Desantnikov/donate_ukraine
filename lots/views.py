@@ -23,6 +23,14 @@ class LotListCreateRetrieveUpdateViewSet(GenericViewSet, ListCreateRetrieveUpdat
         "update": LotCreateSerializer,
     }
 
+    def get_queryset(self):
+        if not self.request.user.is_authenticated:
+            return Lot.objects.filter(is_under_moderation=False, is_active=True)
+
+        return Lot.objects.filter(is_under_moderation=False, is_active=True) | Lot.objects.filter(
+            creator=self.request.user
+        )
+
     def get_serializer_class(self):
         return self.ACTION_TO_SERIALIZER_MAP[self.action]
 
