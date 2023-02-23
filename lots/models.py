@@ -21,7 +21,7 @@ class Lot(ModeratableModelMixin):
 
     is_active = models.BooleanField(default=True)
 
-    # date_created = models.DateTimeField(default=django.utils.timezone.now)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     # TODO: move report to separate model?
     report_text = models.CharField(max_length=512, default="", blank=True)
