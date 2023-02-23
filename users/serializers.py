@@ -19,14 +19,14 @@ class UserSerializer(ModelSerializer):
 
         # TODO: assign groups instead of permissions
         permissions = Permission.objects.filter(
-            codename__in=["add_lot", "change_lot", "delete_lot"],
+            codename__in=["change_user"],  # so user can add his monobank api key
         ).values_list("id", flat=True)
 
         user = User.objects.create_user(**user_data)
 
         # uncomment for testing - on prod newly created user has no permissions
         # they should be granted manually after moderation
-        # user.user_permissions.add(*permissions)
+        user.user_permissions.add(*permissions)
 
         return user
 
