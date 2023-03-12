@@ -4,7 +4,10 @@ from pathlib import Path
 
 import dj_database_url
 import django_on_heroku
+import logging
 
+
+logger = logging.getLogger(__name__)
 
 IS_HEROKU = True
 
@@ -136,6 +139,23 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 
 USE_TZ = True
+
+
+# LOGGING
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+        },
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": "WARNING",
+    },
+}
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/

@@ -1,6 +1,8 @@
 import datetime
+import logging
 
 import requests
+
 from rest_framework.exceptions import ValidationError
 
 
@@ -9,6 +11,8 @@ class MonobankApiWrapper:
     JAR_URL = "https://send.monobank.ua"
 
     def __init__(self, api_token):
+        self.logger = logging.getLogger(__name__)
+
         self.api_token = api_token
         self.auth_headers = {"X-Token": self.api_token}
 
@@ -18,6 +22,8 @@ class MonobankApiWrapper:
         """
         https://api.monobank.ua/docs/#tag/Kliyentski-personalni-dani/paths/~1personal~1client-info/get
         """
+
+        self.logger.info("Fetching user info")
 
         response = requests.get(
             url=f"{self.API_URL}/personal/client-info",
@@ -50,8 +56,7 @@ class MonobankApiWrapper:
 
         return jar
 
-    @staticmethod
-    def raise_errors(response: dict):
+    def raise_errors(self, response: dict):
         if "errorDescription" not in response:
             return
 

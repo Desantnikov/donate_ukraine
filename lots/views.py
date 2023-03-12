@@ -25,11 +25,12 @@ class LotListCreateRetrieveUpdateViewSet(GenericViewSet, ListCreateRetrieveUpdat
 
     def get_queryset(self):
         if not self.request.user.is_authenticated:
-            return Lot.objects.filter(is_under_moderation=False, is_active=True).order_by("created_at")
+            return Lot.objects.filter(is_under_moderation=False,).order_by(
+                "created_at",
+            )
 
-        return Lot.objects.filter(is_under_moderation=False, is_active=True) | Lot.objects.filter(
-            creator=self.request.user
-        ).order_by(
+        # if authenticated - show lots as regular + lots created by user
+        return Lot.objects.filter(is_under_moderation=False,) | Lot.objects.filter(creator=self.request.user).order_by(
             "created_at",
         )
 

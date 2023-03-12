@@ -18,3 +18,11 @@ heroku config:set DISABLE_COLLECTSTATIC=1
 and make collectstatic manually with make heroku-collectstatic
 
 heroku addons:create scheduler:standard
+
+TO LAUNCH PROJECT
+make run
+
+
+TO LAUNCH TESTS IN PYCHARM
+
+make run-db
