@@ -44,6 +44,8 @@ lint:
 	black .
 	flake8 .
 
+refresh-jars-data:
+	docker-compose exec donate_ukraine python ./manage.py refresh_monobank_jars_data --delay=1
 # -------------------- HEROKU COMMANDS -------------
 
 heroku-logs:
@@ -75,3 +77,6 @@ heroku-restart-dyno:
 
 heroku-collectstatic:
 	heroku run python ./manage.py collectstatic
+
+heroku-refresh-jars-data:
+	heroku run python ./manage.py refresh_monobank_jars_data --delay=1

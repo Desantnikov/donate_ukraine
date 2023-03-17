@@ -7,11 +7,11 @@ from django.db import transaction
 from lots.models import Lot
 from lots.constants import LOT_STATUS
 from lots.serializers import LotCreateSerializer, LotListRetrieveSerializer, LotPartialUpdateSerializer
-from mixins.views import ListCreateRetrieveUpdateMixin, ListRetrieveMixin
+from mixins.views import ListCreateRetrieveUpdateMixin, ListRetrieveMixin, DeleteMixin
 from users.permissions import AllPermissionsSeparately
 
 
-class LotListCreateRetrieveUpdateViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin, DestroyModelMixin):
+class LotListCreateRetrieveUpdateViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin, DeleteMixin):
     permission_classes = [IsAuthenticatedOrReadOnly | AllPermissionsSeparately]
     queryset = Lot.objects.filter()
 
