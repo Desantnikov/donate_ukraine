@@ -1,27 +1,11 @@
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
 
+from lots.managers import LotManager
 from mixins.models import DeletableModelMixin
 from lots.constants import LOT_STATUS
 from monobank.models import MonobankJar
 from users.models import User
-
-
-class LotManager(models.Manager):
-    def get_queryset(self):
-        return super().get_queryset().filter(deleted_at__isnull=True)
-
-    def without_moderation(self):
-        return self.exclude(status=LOT_STATUS.MODERATION)
-
-    def active(self):
-        return self.filter(status=LOT_STATUS.ACTIVE)
-
-    def created_by(self, user):
-        return self.filter(creator=user)
-
-    def with_deleted(self):
-        return super().get_queryset()
 
 
 class Lot(DeletableModelMixin):
@@ -34,7 +18,7 @@ class Lot(DeletableModelMixin):
     objects = LotManager()
 
     creator = models.ForeignKey(User, models.PROTECT)
-    name = models.CharField(max_length=100, default="")
+    name = models.CharField(max_length=100, default="", unique=True)
     description = models.CharField(max_length=2048, default="")
     ending_date = models.DateTimeField(null=True)  # auction ends when jar is full or by ending date
     monobank_jar = models.OneToOneField(MonobankJar, on_delete=models.PROTECT, null=True)

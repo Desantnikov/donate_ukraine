@@ -9,8 +9,6 @@ class CustomPagination(PageNumberPagination):
 
         # TODO: rework this ugly w/a which is used to show just indexes
         if next_page_url is not None:
-            print("asdasdasdasd")
-            print(next_page_url)  #
             next_page_url = int(next_page_url[-1])
 
         if previous_page_url is not None:

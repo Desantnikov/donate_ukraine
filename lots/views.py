@@ -5,13 +5,12 @@ from rest_framework.mixins import DestroyModelMixin
 from django.db import transaction
 
 from lots.models import Lot
-from lots.constants import LOT_STATUS
 from lots.serializers import LotCreateSerializer, LotListRetrieveSerializer, LotPartialUpdateSerializer
 from mixins.views import ListCreateRetrieveUpdateMixin, ListRetrieveMixin, DeleteMixin
 from users.permissions import AllPermissionsSeparately
 
 
-class LotListCreateRetrieveUpdateViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin, DeleteMixin):
+class LotAllActionsViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin, DeleteMixin):
     permission_classes = [IsAuthenticatedOrReadOnly | AllPermissionsSeparately]
     queryset = Lot.objects.filter()
 
@@ -36,7 +35,7 @@ class LotListCreateRetrieveUpdateViewSet(GenericViewSet, ListCreateRetrieveUpdat
     #  MonoJAR is created before creating a lot, so we have to rollback it in case user dont have an API_KEY
     @transaction.atomic
     def create(self, request, *args, **kwargs):
-        return super(LotListCreateRetrieveUpdateViewSet, self).create(request, *args, **kwargs)
+        return super(LotAllActionsViewSet, self).create(request, *args, **kwargs)
 
     def update(self, request, *args, **kwargs):
         is_creator = self.get_object().creator == request.user
@@ -47,6 +46,7 @@ class LotListCreateRetrieveUpdateViewSet(GenericViewSet, ListCreateRetrieveUpdat
         return super().update(request, *args, **kwargs)
 
 
+# returns lots owned by specific (request) user
 class MyLotsListRetrieveUpdateViewSet(GenericViewSet, ListRetrieveMixin):
     permission_classes = [IsAuthenticatedOrReadOnly | AllPermissionsSeparately]
     serializer_class = LotListRetrieveSerializer

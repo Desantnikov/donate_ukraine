@@ -23,3 +23,4 @@ class ListCreateRetrieveUpdateMixin(ListModelMixin, CreateModelMixin, RetrieveMo
 class DeleteMixin(DestroyModelMixin):
     def perform_destroy(self, instance):
         instance.deleted_at = timezone.now()
+        instance.save()
