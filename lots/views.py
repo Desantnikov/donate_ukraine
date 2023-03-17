@@ -2,10 +2,10 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.mixins import DestroyModelMixin
-from rest_framework.response import Response
 from django.db import transaction
 
 from lots.models import Lot
+from lots.constants import LOT_STATUS
 from lots.serializers import LotCreateSerializer, LotListRetrieveSerializer, LotPartialUpdateSerializer
 from mixins.views import ListCreateRetrieveUpdateMixin, ListRetrieveMixin
 from users.permissions import AllPermissionsSeparately
@@ -13,7 +13,7 @@ from users.permissions import AllPermissionsSeparately
 
 class LotListCreateRetrieveUpdateViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin, DestroyModelMixin):
     permission_classes = [IsAuthenticatedOrReadOnly | AllPermissionsSeparately]
-    queryset = Lot.objects.filter(is_under_moderation=False, is_active=True)
+    queryset = Lot.objects.filter()
 
     ACTION_TO_SERIALIZER_MAP = {
         "retrieve": LotListRetrieveSerializer,
@@ -25,14 +25,10 @@ class LotListCreateRetrieveUpdateViewSet(GenericViewSet, ListCreateRetrieveUpdat
 
     def get_queryset(self):
         if not self.request.user.is_authenticated:
-            return Lot.objects.filter(is_under_moderation=False,).order_by(
-                "created_at",
-            )
+            return Lot.objects.without_moderation()
 
         # if authenticated - show lots as regular + lots created by user
-        return Lot.objects.filter(is_under_moderation=False,) | Lot.objects.filter(creator=self.request.user).order_by(
-            "created_at",
-        )
+        return Lot.objects.without_moderation() | Lot.objects.created_by(self.request.user)
 
     def get_serializer_class(self):
         return self.ACTION_TO_SERIALIZER_MAP[self.action]

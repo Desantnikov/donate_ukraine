@@ -3,35 +3,42 @@ import time
 from django.core.management.base import BaseCommand
 
 from lots.models import Lot
+from lots.constants import LOT_STATUS
 
 
 class Command(BaseCommand):
-    help = "Updates monobank jar data for all active and non undermoderation lots"
+    help = "Updates monobank jar data for all active and non undermoderation lots; Only active lots by default"
 
     def add_arguments(self, parser):
-        parser.add_argument("--filter_by_is_active", default=True, help="Update deactivated lots also")
-        parser.add_argument("--filter_by_is_under_moderation", default=True, help="Update under moderation lots also")
-        parser.add_argument("--all", default=True, help="Update all lots")
+        parser.add_argument("--update-closed", default=True, help="Update closed lots also")
+        parser.add_argument("--update-under-moderation", default=True, help="Update under moderation lots also")
         parser.add_argument("--delay", default=30, help="Delay between update requests")
 
     def handle(self, *args, **options):
-        update_all = options["all"]
-        filter_by_is_active = options["filter_by_is_active"] or update_all
-        filter_by_is_under_moderation = options["filter_by_is_under_moderation"] or update_all
+        delay = options["delay"]
+
+        update_closed = options["update-closed"]
+        update_under_moderation = options["update-under-moderation"]
 
         lots_to_update = Lot.objects.all()
-        if filter_by_is_active and not update_all:
-            lots_to_update.exclude(is_active=False)
-        if filter_by_is_under_moderation and not update_all:
-            lots_to_update.exclude(is_under_moderation=False)
 
+        if not update_closed:
+            lots_to_update = lots_to_update.exclude(status=LOT_STATUS.CLOSED)
+
+        if not update_under_moderation:
+            lots_to_update = lots_to_update.exclude(status=LOT_STATUS.MODERATION)
+
+        self.update_lots(lots_to_update, delay=delay)
+
+    @staticmethod
+    def update_lots(lots_to_update, delay):
         errors = []
-        for lot in Lot.objects.all():
+        for lot in lots_to_update:
             try:
-                time.sleep(options["delay"])
+                time.sleep(delay)
                 lot.monobank_jar.update_data()
             except Exception as e:
                 errors.append(e)
 
         for exception in errors:
-            print(f"Error: {exception.args}\r\n")
+            print(f"Error: {exception.args}\r\n")  # TODO: Log
