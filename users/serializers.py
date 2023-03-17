@@ -26,7 +26,7 @@ class UserSerializer(ModelSerializer):
 
         # uncomment for testing - on prod newly created user has no permissions
         # they should be granted manually after moderation
-        user.user_permissions.add(*permissions)
+        # user.user_permissions.add(*permissions)
 
         return user
 
