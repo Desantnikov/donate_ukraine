@@ -29,6 +29,7 @@ django = "==3.2.10"
 boto3 = "*"
 django-storages = "*"
 django-fernet-fields = "*"
+django-extensions = "*"
 
 [dev-packages]
 black = "*"

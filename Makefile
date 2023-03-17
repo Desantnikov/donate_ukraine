@@ -2,7 +2,7 @@ bash:
 	docker-compose exec donate_ukraine bash -c "export COLUMNS=`tput cols`; export LINES=`tput lines`; exec bash"
 
 shell:
-	docker-compose exec donate_ukraine /code/manage.py shell
+	docker-compose exec donate_ukraine /code/manage.py shell_plus
 
 superuser:
 	docker-compose exec donate_ukraine /code/manage.py createsuperuser  --username=root --password=12345678 --first_name=John --last_name=Doe --phone_number=+380667829374
