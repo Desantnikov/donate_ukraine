@@ -36,7 +36,7 @@ fix-files-ownership:
 	sudo chmod -R 777 ./users/migrations/
 
 tests:
-	export DJANGO_SETTINGS_MODULE=settings.compose
+	export DJANGO_SETTINGS_MODULE=settings.compose # why not working?
 	docker-compose exec donate_ukraine pytest .
 
 lint:

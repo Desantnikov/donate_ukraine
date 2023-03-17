@@ -20,6 +20,9 @@ class LotManager(models.Manager):
     def created_by(self, user):
         return self.filter(creator=user)
 
+    def with_deleted(self):
+        return super().get_queryset()
+
 
 class Lot(DeletableModelMixin):
     class Meta:
