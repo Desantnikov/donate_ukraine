@@ -50,12 +50,6 @@ class LotListCreateRetrieveUpdateViewSet(GenericViewSet, ListCreateRetrieveUpdat
 
         return super().update(request, *args, **kwargs)
 
-    def destroy(self, request, *args, **kwargs):
-        lot = self.get_object()
-        lot.is_under_moderation = True
-        lot.save()
-        return Response("sent for moderation")
-
 
 class MyLotsListRetrieveUpdateViewSet(GenericViewSet, ListRetrieveMixin):
     permission_classes = [IsAuthenticatedOrReadOnly | AllPermissionsSeparately]
