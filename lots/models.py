@@ -32,7 +32,7 @@ class Lot(DeletableModelMixin):
 
     creator = models.ForeignKey(User, models.PROTECT)
     name = models.CharField(max_length=100, default="")
-    description = models.CharField(max_length=512, default="")
+    description = models.CharField(max_length=2048, default="")
     ending_date = models.DateTimeField(null=True)  # auction ends when jar is full or by ending date
     monobank_jar = models.OneToOneField(MonobankJar, on_delete=models.PROTECT, null=True)
 
