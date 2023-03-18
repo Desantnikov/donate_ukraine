@@ -1,3 +1,8 @@
+import random
+import string
+
+from django.conf import settings
+from django.core.mail import send_mail
 from rest_framework.decorators import action
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import IsAuthenticated
@@ -45,18 +50,33 @@ class LogoutAPIView(APIView):
         return Response("Logged out")
 
 
-# Maybe will be used one time
-# class RestorePasswordAPIView(APIView):
-#     permission_classes = [AllowAny]
-#
-#     parser_classes = [JSONParser]
-#
-#     def post(self, request, *args):
-#         email = request.data.get('email')
-#
-#         user = User.objects.filter(email=email).first()
-#
-#         if user is None:
-#             return Response(f"Email was sent to your address: {email}")
-#
-#
+class RestorePasswordAPIView(APIView):
+    def post(self, request):
+        email = request.data.get("email")
+
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            return Response(status=404, data={"message": "Not found"})
+
+        new_password = "".join(random.choice(string.ascii_lowercase) for _ in range(12))
+
+        try:
+            status = send_mail(
+                subject="Password restoration",
+                message=f"You have requested a password restoration. Your new password is: {new_password}",
+                from_email="donate.ua.questions@gmail.com",
+                recipient_list=[user.email],
+                auth_user="apikey",
+                auth_password=settings.MAIL_API_KEY,
+            )
+        except Exception as e:
+            return Response(status=400, data={"message": f"Failed to send restore email with error: {e}"})
+
+        if status != 1:
+            return Response(status=400, data={"message": "Mail send status != 1"})
+
+        user.set_password(new_password)
+        user.save()
+
+        return Response(status=200, data={"message": "Sent an email"})

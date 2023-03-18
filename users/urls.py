@@ -3,7 +3,7 @@ from rest_framework import routers
 from rest_framework.urlpatterns import include
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
-from users.views import LogoutAPIView, UserViewSet
+from users.views import LogoutAPIView, RestorePasswordAPIView, UserViewSet
 
 
 router = routers.DefaultRouter(trailing_slash=False)
@@ -15,4 +15,5 @@ urlpatterns = [
     path("login", TokenObtainPairView.as_view(), name="login"),
     path("logout", LogoutAPIView.as_view(), name="logout"),
     path("login/refresh", TokenRefreshView.as_view(), name="refresh"),
+    path("login/restore", RestorePasswordAPIView.as_view(), name="restore")
 ]

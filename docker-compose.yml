@@ -26,6 +26,7 @@ services:
     volumes:
       - .:/code
     environment:
+      - MAIL_API_KEY=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
       - DJANGO_SETTINGS_MODULE=settings.compose
       - AWS_ACCESS_KEY_ID=AKIA3YGD4DJ7WJK3XM7X
       - AWS_SECRET_ACCESS_KEY=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
