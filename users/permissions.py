@@ -1,4 +1,4 @@
-from rest_framework.permissions import AllowAny, BasePermission, DjangoModelPermissions
+from rest_framework.permissions import DjangoModelPermissions
 
 
 BASIC_PERMISSIONS = (

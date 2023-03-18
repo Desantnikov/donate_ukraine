@@ -30,6 +30,7 @@ boto3 = "*"
 django-storages = "*"
 django-fernet-fields = "*"
 django-extensions = "*"
+autoflake = "*"
 
 [dev-packages]
 black = "*"
@@ -38,6 +39,7 @@ flake8 = "*"
 flake8-pyproject = "*"
 pre-commit = "*"
 click = "==8.0.4"
+autoflake = "*"
 
 [requires]
 python_version = "3.9"

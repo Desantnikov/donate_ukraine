@@ -1,6 +1,3 @@
-import copy
-
-from django.contrib.auth.models import Permission
 from rest_framework.serializers import ModelSerializer
 
 from lots.serializers import LotListRetrieveSerializer
@@ -12,7 +9,6 @@ class UserSerializer(ModelSerializer):
 
     class Meta:
         model = User
-        # TODO: don't show api token to user?
         fields = ("first_name", "last_name", "username", "email", "password", "phone_number", "api_token", "lots")
 
     def create(self, validated_data):
