@@ -1,10 +1,9 @@
-from django.contrib.auth.models import AbstractUser, UserManager as DjangoUserManager
+from django.contrib.auth.models import AbstractUser, Permission, UserManager as DjangoUserManager
 from django.db import models
 from fernet_fields import EncryptedTextField
 
+from mixins.models import DeletableModelMixin, ModeratableModelMixin
 from users.permissions import BASIC_PERMISSIONS
-from django.contrib.auth.models import Permission
-from mixins.models import ModeratableModelMixin, DeletableModelMixin
 
 
 class UserManager(DjangoUserManager):

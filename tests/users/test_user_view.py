@@ -1,8 +1,8 @@
 import pytest
 from django.urls import reverse
-from users.permissions import BASIC_PERMISSIONS
 
 from users.models import User
+from users.permissions import BASIC_PERMISSIONS
 
 
 @pytest.mark.django_db

@@ -6,7 +6,6 @@ import lots.constants
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("lots", "0009_alter_lot_status"),
     ]

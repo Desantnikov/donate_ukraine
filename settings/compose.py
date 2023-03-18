@@ -1,4 +1,4 @@
-from settings.heroku import *
+from settings.heroku import *  # noqa
 
 
 IS_HEROKU = False

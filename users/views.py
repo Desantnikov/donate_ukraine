@@ -1,13 +1,12 @@
 from rest_framework.decorators import action
+from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from rest_framework.exceptions import PermissionDenied
-
-from mixins.views import ListCreateRetrieveUpdateMixin, DeleteMixin
+from mixins.views import DeleteMixin, ListCreateRetrieveUpdateMixin
 from users.models import User
 from users.permissions import AnyoneCanCreate
 from users.serializers import UserSerializer

@@ -6,7 +6,6 @@ from django.urls import reverse
 
 from tests.stubs.monobank_stub_responses import CLIENT_INFO_STUB
 from users.models import User
-from users.serializers import UserSerializer
 
 
 @pytest.fixture

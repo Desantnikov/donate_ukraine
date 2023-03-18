@@ -45,6 +45,9 @@ lint:
 	black .
 	flake8 .
 
+remove-unused:
+	autoflake -r --exclude settings/\*.py --in-place --remove-all-unused-imports   --remove-unused-variables *
+
 refresh-jars-data:
 	docker-compose exec donate_ukraine python ./manage.py refresh_monobank_jars_data --delay=1
 

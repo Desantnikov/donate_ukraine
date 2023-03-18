@@ -1,13 +1,12 @@
 from django.db import transaction
 from rest_framework.exceptions import ValidationError
-from rest_framework.mixins import DestroyModelMixin
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import GenericViewSet
 
-from users.permissions import AnyoneCanListRetrieve
 from lots.models import Lot
 from lots.serializers import LotCreateSerializer, LotListRetrieveSerializer, LotPartialUpdateSerializer
 from mixins.views import DeleteMixin, ListCreateRetrieveUpdateMixin, ListRetrieveMixin
+from users.permissions import AnyoneCanListRetrieve
 
 
 class LotAllActionsViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin, DeleteMixin):

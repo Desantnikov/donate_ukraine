@@ -1,8 +1,7 @@
-import datetime
 from unittest.mock import patch
-from django.urls import reverse
 
 import pytest
+from django.urls import reverse
 
 from lots.constants import LOT_STATUS
 from lots.models import Lot

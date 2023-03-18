@@ -6,7 +6,6 @@ import lots.constants
 
 
 class Migration(migrations.Migration):
-
     replaces = [
         ("lots", "0005_auto_20230317_0941"),
         ("lots", "0006_alter_lot_status"),

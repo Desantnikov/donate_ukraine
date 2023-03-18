@@ -14,7 +14,7 @@ class CustomPagination(PageNumberPagination):
         if previous_page_url is not None:
             try:
                 previous_page_url = int(previous_page_url[-1])
-            except:
+            except Exception:
                 previous_page_url = 1
 
         return Response(
