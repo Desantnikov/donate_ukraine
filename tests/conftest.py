@@ -47,7 +47,7 @@ def test_user_instance(test_user_data):
 
 @pytest.fixture
 def secondary_test_user_instance(test_user_data):
-    test_user_data["username"] += "_secondary"
+    test_user_data = {k: v + "_secondary" for k, v in test_user_data.items()}
     user = User.objects.create(**test_user_data)
     user.set_password(test_user_data["password"])
     user.set_basic_permissions()

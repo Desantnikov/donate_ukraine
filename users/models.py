@@ -15,6 +15,7 @@ class User(AbstractUser, ModeratableModelMixin, DeletableModelMixin):  #
     # to fetch data from auction creator's monobank jar
     api_token = EncryptedTextField(blank=True, default="")  # encrypt
 
+    email = models.EmailField(max_length=100, unique=True)
     phone_number = models.CharField(max_length=20, default="")  # needed for moderation
 
     def set_basic_permissions(self):
