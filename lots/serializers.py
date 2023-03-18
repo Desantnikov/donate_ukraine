@@ -65,7 +65,8 @@ class LotPartialUpdateSerializer(ModelSerializer):
 
     class Meta:
         model = Lot
-        fields = "__all__"
+        # fields = "__all__"
+        exclude = ("status",)
 
     # def validate(self, attrs):
     #     # TODO: make request to mono api to check if sendId/api-key are real

@@ -4,6 +4,7 @@ import pytest
 from django.test.client import Client
 from django.urls import reverse
 
+from tests.test_data.monobank_stub_responses import CLIENT_INFO_STUB
 from users.models import User
 from users.serializers import UserSerializer
 
@@ -73,3 +74,9 @@ def admin_client_with_jwt(admin_user_credentials):
     admin_client_with_jwt.defaults["HTTP_AUTHORIZATION"] = f'Bearer {auth_data["access"]}'
 
     return admin_client_with_jwt
+
+
+@pytest.fixture
+def monobank_api_client_info_stub():
+    # https://api.monobank.ua/personal/client-info
+    return CLIENT_INFO_STUB

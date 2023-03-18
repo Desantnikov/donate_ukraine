@@ -11,7 +11,7 @@ from users.permissions import AllPermissionsSeparately
 
 
 class LotAllActionsViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin, DeleteMixin):
-    permission_classes = [IsAuthenticatedOrReadOnly | AllPermissionsSeparately]
+    permission_classes = [IsAuthenticatedOrReadOnly | AllPermissionsSeparately]  # TODO: permissions are not safe
     queryset = Lot.objects.filter()
 
     ACTION_TO_SERIALIZER_MAP = {
@@ -42,6 +42,9 @@ class LotAllActionsViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin, Delete
 
         if not any([is_creator, request.user.is_superuser]):
             raise ValidationError({"user": "Only lot creator can modify it"})
+
+        if request.data.get("status") is not None:
+            raise ValidationError({"user": "Only admin can change status"})
 
         return super().update(request, *args, **kwargs)
 
