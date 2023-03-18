@@ -12,15 +12,20 @@ class UserSerializer(ModelSerializer):
 
     class Meta:
         model = User
-        # TODO: don't show api token to user
-        fields = ("first_name", "last_name", "username", "email", "phone_number", "api_token", "lots")
+        # TODO: don't show api token to user?
+        fields = ("first_name", "last_name", "username", "email", "password", "phone_number", "api_token", "lots")
 
     def create(self, validated_data):
-        user_data = copy.copy(self.validated_data)
-
-        user = User.objects.create_user(**user_data)
+        user = User.objects.create_user(**validated_data)
         user.set_basic_permissions()
 
         return user
+
+    def to_representation(self, instance):
+        user_dict = super().to_representation(instance)
+        user_dict.pop("password")
+        user_dict["id"] = instance.id
+
+        return user_dict
 
     # TODO: redeclare `edit` and `destroy` so it will be checking if it's their creator

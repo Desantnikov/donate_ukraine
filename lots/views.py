@@ -1,17 +1,17 @@
 from django.db import transaction
 from rest_framework.exceptions import ValidationError
 from rest_framework.mixins import DestroyModelMixin
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import GenericViewSet
 
+from users.permissions import AnyoneCanListRetrieve
 from lots.models import Lot
 from lots.serializers import LotCreateSerializer, LotListRetrieveSerializer, LotPartialUpdateSerializer
 from mixins.views import DeleteMixin, ListCreateRetrieveUpdateMixin, ListRetrieveMixin
-from users.permissions import AllPermissionsSeparately
 
 
 class LotAllActionsViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin, DeleteMixin):
-    permission_classes = [IsAuthenticatedOrReadOnly | AllPermissionsSeparately]  # TODO: permissions are not safe
+    permission_classes = [AnyoneCanListRetrieve]
     queryset = Lot.objects.filter()
 
     ACTION_TO_SERIALIZER_MAP = {
@@ -24,10 +24,10 @@ class LotAllActionsViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin, Delete
 
     def get_queryset(self):
         if not self.request.user.is_authenticated:
-            return Lot.objects.without_moderation()
+            return Lot.objects.exclude_moderation()
 
         # if authenticated - show lots as regular + lots created by user
-        return Lot.objects.without_moderation() | Lot.objects.created_by(self.request.user)
+        return Lot.objects.exclude_moderation() | Lot.objects.created_by(self.request.user)
 
     def get_serializer_class(self):
         return self.ACTION_TO_SERIALIZER_MAP[self.action]
@@ -51,7 +51,7 @@ class LotAllActionsViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin, Delete
 
 # returns lots owned by specific (request) user
 class MyLotsListRetrieveUpdateViewSet(GenericViewSet, ListRetrieveMixin):
-    permission_classes = [IsAuthenticatedOrReadOnly | AllPermissionsSeparately]
+    permission_classes = [IsAuthenticated]
     serializer_class = LotListRetrieveSerializer
     # queryset = Lot.objects.all()
 

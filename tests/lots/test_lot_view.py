@@ -11,7 +11,7 @@ from monobank.models import MonobankJar
 
 @pytest.mark.django_db
 def test_get_empty_lot_view(client, admin_client):
-    response = admin_client.get("/lots")
+    response = client.get("/lots")
 
     assert response.json() == {
         "pagination": {
@@ -24,17 +24,15 @@ def test_get_empty_lot_view(client, admin_client):
     }
 
 
-@patch("monobank.models.MonobankJar.update_data")
-@patch("monobank.api_wrapper.MonobankApiWrapper.fetch_user_info", lambda: {})
 @pytest.mark.django_db
-def test_create_lot(client, admin_client_with_jwt, test_lot_data):
+def test_create_lot(client, client_with_jwt, test_lot_data):
     # check there is no lots and jars before test
     assert MonobankJar.objects.count() == 0
     assert Lot.objects.count() == 0
 
-    with patch("requests.get", lambda: monobank_api_client_info_stub):
+    with patch("monobank.models.MonobankJar.update_data"):
         # create lot (and associated jar)
-        admin_client_with_jwt.post(
+        client_with_jwt.post(
             reverse("lots-list"),
             data=test_lot_data,
             content_type="application/json",
@@ -45,7 +43,7 @@ def test_create_lot(client, admin_client_with_jwt, test_lot_data):
     assert Lot.objects.count() == 1
 
     # get lots list
-    response = admin_client_with_jwt.get(reverse("lots-list"))
+    response = client_with_jwt.get(reverse("lots-list"))
     assert response.status_code == 200
 
     created_lot_data = response.json()["results"][0]
@@ -58,10 +56,8 @@ def test_create_lot(client, admin_client_with_jwt, test_lot_data):
 
 
 @pytest.mark.django_db
-def test_user_can_change_his_own_lot_data(
-    client_with_jwt, test_lot_data, updated_test_lot_data, monobank_api_client_info_stub
-):
-    with patch("requests.get", lambda: monobank_api_client_info_stub):
+def test_user_can_change_his_own_lot_data(client_with_jwt, test_lot_data, updated_test_lot_data):
+    with patch("monobank.models.MonobankJar.update_data"):
         response = client_with_jwt.post(reverse("lots-list"), data=test_lot_data)
         assert response.status_code == 201
 
@@ -83,9 +79,9 @@ def test_user_can_change_his_own_lot_data(
 
 @pytest.mark.django_db
 def test_user_cant_fetch_others_lot_under_moderation(
-    admin_client_with_jwt, client_with_jwt, test_lot_data, updated_test_lot_data, monobank_api_client_info_stub
+    admin_client_with_jwt, client_with_jwt, test_lot_data, updated_test_lot_data
 ):
-    with patch("requests.get", lambda: monobank_api_client_info_stub):
+    with patch("monobank.models.MonobankJar.update_data"):
         response = admin_client_with_jwt.post(reverse("lots-list"), data=test_lot_data)
         assert response.status_code == 201
 
@@ -98,8 +94,8 @@ def test_user_cant_fetch_others_lot_under_moderation(
 
 
 @pytest.mark.django_db
-def test_user_cant_change_lot_status(client_with_jwt, test_lot_data, monobank_api_client_info_stub):
-    with patch("requests.get", lambda: monobank_api_client_info_stub):
+def test_user_cant_change_lot_status(client_with_jwt, test_lot_data):
+    with patch("monobank.models.MonobankJar.update_data"):
         response = client_with_jwt.post(
             reverse("lots-list"),
             data=test_lot_data,

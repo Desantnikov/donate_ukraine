@@ -5,14 +5,16 @@ from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet, ViewSet
 from rest_framework_simplejwt.tokens import RefreshToken
 
+from rest_framework.exceptions import PermissionDenied
+
 from mixins.views import ListCreateRetrieveUpdateMixin, DeleteMixin
 from users.models import User
-from users.permissions import AnyoneCanCreateOtherDepends
+from users.permissions import AnyoneCanCreate, SpecificPermissionForEachAction, AllowAny
 from users.serializers import UserSerializer
 
 
 class UserViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin, DeleteMixin):  # TODO: remove list all users
-    permission_classes = [AnyoneCanCreateOtherDepends]
+    permission_classes = [AnyoneCanCreate]
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -21,6 +23,12 @@ class UserViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin, DeleteMixin):  
     def info(self, request):
         serializer = self.get_serializer_class()(request.user)
         return Response(serializer.data)
+
+    def update(self, request, *args, **kwargs):
+        if self.get_object() != self.request.user:
+            raise PermissionDenied({"user": "You can't update another user's data"})
+
+        return super(UserViewSet, self).update(request, *args, **kwargs)
 
 
 class LogoutAPIView(APIView):

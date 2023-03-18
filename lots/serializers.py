@@ -52,7 +52,7 @@ class LotCreateSerializer(ModelSerializer):
 
     def create(self, validated_data):
         created_lot = super(LotCreateSerializer, self).create(validated_data)
-        # created_lot.monobank_jar.update_data()
+        created_lot.monobank_jar.update_data()
 
         return created_lot
 

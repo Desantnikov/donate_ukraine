@@ -4,7 +4,7 @@ import pytest
 from django.test.client import Client
 from django.urls import reverse
 
-from tests.test_data.monobank_stub_responses import CLIENT_INFO_STUB
+from tests.stubs.monobank_stub_responses import CLIENT_INFO_STUB
 from users.models import User
 from users.serializers import UserSerializer
 
@@ -39,6 +39,16 @@ def admin_user_credentials(admin_user):
 
 @pytest.fixture
 def test_user_instance(test_user_data):
+    user = User.objects.create(**test_user_data)
+    user.set_password(test_user_data["password"])
+    user.set_basic_permissions()
+    user.save()
+    return user
+
+
+@pytest.fixture
+def secondary_test_user_instance(test_user_data):
+    test_user_data["username"] += "_secondary"
     user = User.objects.create(**test_user_data)
     user.set_password(test_user_data["password"])
     user.set_basic_permissions()

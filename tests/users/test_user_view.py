@@ -28,9 +28,9 @@ def test_created_user_has_basic_permissions(client, test_user_data):
 
     user = User.objects.get(username=test_user_data["username"])
 
-    user_permissions_codenames = tuple(permission.codename for permission in user.user_permissions.all())
+    user_permissions_codenames = set(permission.codename for permission in user.user_permissions.all())
 
-    assert user_permissions_codenames == BASIC_PERMISSIONS
+    assert user_permissions_codenames == set(BASIC_PERMISSIONS)
 
 
 @pytest.mark.django_db
@@ -51,10 +51,22 @@ def test_user_edit_data(client_with_jwt, test_user_data, updated_test_user_data)
     response = client_with_jwt.get(path=reverse("users-info"))
 
     assert response.status_code == 200
-    assert response.json() == {
-        **updated_test_user_data,
-        "lots": [],
-    }
+    assert response.json()["api_token"] == updated_test_user_data["api_token"]
+    assert response.json()["email"] == updated_test_user_data["email"]
+
+
+@pytest.mark.django_db
+def test_exception_on_changing_another_user_data(
+    client_with_jwt, admin_client_with_jwt, test_user_data, updated_test_user_data, secondary_test_user_instance
+):
+    response = client_with_jwt.patch(
+        path=f"/users/{secondary_test_user_instance.id}",
+        data=updated_test_user_data,
+        content_type="application/json",
+    )
+
+    assert response.status_code == 403
+    assert response.json() == {"user": "You can't update another user's data"}
 
 
 @pytest.mark.django_db

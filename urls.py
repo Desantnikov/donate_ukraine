@@ -7,7 +7,6 @@ from rest_framework import routers
 from rest_framework.permissions import AllowAny
 
 from lots.urls import router as lots_router
-from monobank.urls import router as monobank_router
 from storage.urls import router as storage_router
 from users.urls import urlpatterns as users_urlpatterns
 
@@ -16,12 +15,10 @@ router = routers.DefaultRouter(trailing_slash=False)
 
 router.registry.extend(storage_router.registry)
 router.registry.extend(lots_router.registry)
-router.registry.extend(monobank_router.registry)
 
 
 urlpatterns = [
     path('', include(lots_router.urls)),
-    path('', include(monobank_router.urls)),
     path('', include(storage_router.urls)),
 
     *users_urlpatterns,
