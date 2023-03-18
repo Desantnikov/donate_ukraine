@@ -29,6 +29,12 @@ class UserViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin, DeleteMixin):  
 
         return super(UserViewSet, self).update(request, *args, **kwargs)
 
+    def destroy(self, request, *args, **kwargs):
+        if request.user != self.get_object():
+            raise PermissionDenied({"user": "You can't delete another user"})
+
+        return super(UserViewSet, self).destroy(request, *args, **kwargs)
+
 
 class LogoutAPIView(APIView):
     permission_classes = [IsAuthenticated]

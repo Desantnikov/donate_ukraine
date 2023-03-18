@@ -5,6 +5,7 @@ import django.utils.timezone
 from django.db import migrations, models
 from fernet_fields import EncryptedTextField
 
+import users.managers
 import users.models
 
 
@@ -93,7 +94,7 @@ class Migration(migrations.Migration):
                 "abstract": False,
             },
             managers=[
-                ("objects", users.models.UserManager()),
+                ("objects", users.managers.UserManager()),
             ],
         ),
     ]

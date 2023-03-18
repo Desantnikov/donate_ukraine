@@ -64,6 +64,23 @@ def test_user_edit_data(client_with_jwt, test_user_data, updated_test_user_data)
 
 
 @pytest.mark.django_db
+def test_delete_user(client_with_jwt, test_user_data, updated_test_user_data, test_user_instance):
+    response = client_with_jwt.delete(path=reverse("users-list") + f"/{test_user_instance.id}")
+
+    assert response.status_code == 204
+
+
+@pytest.mark.django_db
+def test_error_when_delete_another_user(
+    client_with_jwt, test_user_data, updated_test_user_data, test_user_instance, secondary_test_user_instance
+):
+    response = client_with_jwt.delete(path=reverse("users-list") + f"/{secondary_test_user_instance.id}")
+
+    assert response.status_code == 403
+    assert response.json() == {"user": "You can't delete another user"}
+
+
+@pytest.mark.django_db
 def test_exception_on_invalid_api_key(client_with_jwt, test_user_data, updated_test_user_data, test_user_instance):
     with patch("monobank.api_wrapper.MonobankApiWrapper.fetch_user_info"):
         response = client_with_jwt.get(path=reverse("users-info"))

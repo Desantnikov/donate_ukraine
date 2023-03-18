@@ -3,6 +3,7 @@ from rest_framework.permissions import DjangoModelPermissions
 
 BASIC_PERMISSIONS = (
     "change_user",
+    "delete_user",
     "add_lot",
     "change_lot",
     "delete_lot",

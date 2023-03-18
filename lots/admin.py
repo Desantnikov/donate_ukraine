@@ -10,4 +10,4 @@ class LotAdmin(admin.ModelAdmin):
     readonly_fields = ("created_at", "deleted_at")
 
     def get_queryset(self, request):
-        return Lot.objects.all()
+        return Lot.objects.with_deleted()

@@ -1,16 +1,10 @@
-from django.contrib.auth.models import AbstractUser, Permission, UserManager as DjangoUserManager
+from django.contrib.auth.models import AbstractUser, Permission
 from django.db import models
 from fernet_fields import EncryptedTextField
 
 from mixins.models import DeletableModelMixin, ModeratableModelMixin
+from users.managers import UserManager
 from users.permissions import BASIC_PERMISSIONS
-
-
-class UserManager(DjangoUserManager):
-    def create_superuser(self, *args, **kwargs):
-        user = super().create_superuser(*args, **kwargs)
-
-        return user
 
 
 class User(AbstractUser, ModeratableModelMixin, DeletableModelMixin):  #
