@@ -1,7 +1,7 @@
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
 
-from lots.constants import LOT_STATUS
+from lots.constants import LOT_STATUS, WINNER_PICKING_TYPE
 from lots.managers import LotManager
 from mixins.models import DeletableModelMixin
 from monobank.models import MonobankJar
@@ -24,6 +24,9 @@ class Lot(DeletableModelMixin):
     monobank_jar = models.OneToOneField(MonobankJar, on_delete=models.PROTECT, null=True)
 
     status = models.CharField(choices=LOT_STATUS.values(), default=LOT_STATUS.MODERATION, max_length=50)
+    winner_picking_type = models.CharField(
+        choices=WINNER_PICKING_TYPE.values(), default=WINNER_PICKING_TYPE.TOP_DONATER, max_length=50
+    )
 
     created_at = models.DateTimeField(auto_now_add=True)
 

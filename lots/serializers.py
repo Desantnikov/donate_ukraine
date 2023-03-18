@@ -23,7 +23,7 @@ class LotCreateSerializer(ModelSerializer):
 
     class Meta:
         model = Lot
-        fields = ["name", "description", "ending_date", "monobank_jar_link"]
+        fields = ["name", "description", "winner_picking_type", "ending_date", "monobank_jar_link"]
 
     def validate(self, attrs):
         # TODO: make request to mono api to check if sendId/api-key are real
