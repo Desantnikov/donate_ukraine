@@ -8,4 +8,5 @@ class LOT_STATUS(str, Enum):
 
     @classmethod
     def values(cls):
-        return [(i.name, i.value) for i in cls]
+        # [("MODERATION", "Under moderation"), ("ACTIVE", "Active"), ...]
+        return [(i.value, i.name) for i in cls]
