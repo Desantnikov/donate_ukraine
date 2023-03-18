@@ -4,7 +4,7 @@ import pytest
 from django.test.client import Client
 from django.urls import reverse
 
-from tests.stubs.monobank_stub_responses import CLIENT_INFO_STUB
+from tests.stubs.monobank_stub_responses import CLIENT_INFO_STUB, CLIENT_STATEMENTS_STUB
 from users.models import User
 
 
@@ -89,3 +89,8 @@ def admin_client_with_jwt(admin_user_credentials):
 def monobank_api_client_info_stub():
     # https://api.monobank.ua/personal/client-info
     return CLIENT_INFO_STUB
+
+
+@pytest.fixture
+def monobank_api_client_statements_stub():
+    return CLIENT_STATEMENTS_STUB
