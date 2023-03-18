@@ -2,7 +2,7 @@ import datetime
 import logging
 
 import requests
-from rest_framework.exceptions import ValidationError
+from rest_framework.exceptions import AuthenticationFailed, ValidationError
 
 
 class MonobankApiWrapper:
@@ -60,6 +60,6 @@ class MonobankApiWrapper:
             return
 
         if response["errorDescription"] == "Unknown 'X-Token'":
-            raise ValidationError({"api_token": "Could not authorize to monobank api with this token"})
+            raise AuthenticationFailed({"api_token": "Could not authorize to monobank api with this token"})
 
         raise ValidationError({"monobank_api_error": response["errorDescription"]})

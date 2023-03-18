@@ -1,6 +1,7 @@
 from rest_framework.serializers import ModelSerializer
 
 from lots.serializers import LotListRetrieveSerializer
+from monobank.api_wrapper import MonobankApiWrapper
 from users.models import User
 
 
@@ -10,6 +11,10 @@ class UserSerializer(ModelSerializer):
     class Meta:
         model = User
         fields = ("first_name", "last_name", "username", "email", "password", "phone_number", "api_token", "lots")
+
+    def validate_api_token(self, value):
+        MonobankApiWrapper(api_token=value)
+        return value
 
     def create(self, validated_data):
         user = User.objects.create_user(**validated_data)
