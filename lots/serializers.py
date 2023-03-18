@@ -3,7 +3,6 @@ import re
 from rest_framework.exceptions import ValidationError
 from rest_framework.serializers import CharField, ModelSerializer
 
-
 from lots.models import Lot
 from monobank.models import MonobankJar
 from monobank.serializers import MonobankJarSerializer

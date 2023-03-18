@@ -1,9 +1,9 @@
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
 
+from lots.constants import LOT_STATUS
 from lots.managers import LotManager
 from mixins.models import DeletableModelMixin
-from lots.constants import LOT_STATUS
 from monobank.models import MonobankJar
 from users.models import User
 

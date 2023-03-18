@@ -1,12 +1,12 @@
+from django.db import transaction
 from rest_framework.exceptions import ValidationError
+from rest_framework.mixins import DestroyModelMixin
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.viewsets import GenericViewSet
-from rest_framework.mixins import DestroyModelMixin
-from django.db import transaction
 
 from lots.models import Lot
 from lots.serializers import LotCreateSerializer, LotListRetrieveSerializer, LotPartialUpdateSerializer
-from mixins.views import ListCreateRetrieveUpdateMixin, ListRetrieveMixin, DeleteMixin
+from mixins.views import DeleteMixin, ListCreateRetrieveUpdateMixin, ListRetrieveMixin
 from users.permissions import AllPermissionsSeparately
 
 

@@ -1,6 +1,8 @@
-import pytest
 import datetime
 from unittest.mock import patch
+
+import pytest
+
 from lots.models import Lot
 from monobank.models import MonobankJar
 

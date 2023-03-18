@@ -1,3 +1,5 @@
+.PHONY: tests
+
 bash:
 	docker-compose exec donate_ukraine bash -c "export COLUMNS=`tput cols`; export LINES=`tput lines`; exec bash"
 
@@ -36,7 +38,6 @@ fix-files-ownership:
 	sudo chmod -R 777 ./users/migrations/
 
 tests:
-	export DJANGO_SETTINGS_MODULE=settings.compose # why not working?
 	docker-compose exec donate_ukraine pytest .
 
 lint:
@@ -46,6 +47,7 @@ lint:
 
 refresh-jars-data:
 	docker-compose exec donate_ukraine python ./manage.py refresh_monobank_jars_data --delay=1
+
 # -------------------- HEROKU COMMANDS -------------
 
 heroku-logs:

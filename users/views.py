@@ -1,13 +1,13 @@
 from rest_framework.decorators import action
-from rest_framework.permissions import IsAuthenticated, AllowAny, IsAuthenticatedOrReadOnly, DjangoModelPermissions
+from rest_framework.permissions import AllowAny, DjangoModelPermissions, IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet, ViewSet
 from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework.views import APIView
-from users.permissions import AllPermissionsSeparately, AnyoneCanCreateOtherDepends
 
 from mixins.views import ListCreateRetrieveUpdateMixin
 from users.models import User
+from users.permissions import AllPermissionsSeparately, AnyoneCanCreateOtherDepends
 from users.serializers import UserSerializer
 
 

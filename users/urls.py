@@ -1,7 +1,7 @@
 from django.urls import path
 from rest_framework import routers
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from rest_framework.urlpatterns import include
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from users.views import LogoutAPIView, UserViewSet
 

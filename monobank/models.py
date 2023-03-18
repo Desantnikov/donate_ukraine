@@ -1,5 +1,5 @@
-from django.utils import timezone
 from django.db import models
+from django.utils import timezone
 from django.utils.timezone import now
 
 from monobank.api_wrapper import MonobankApiWrapper

@@ -2,8 +2,8 @@ import time
 
 from django.core.management.base import BaseCommand
 
-from lots.models import Lot
 from lots.constants import LOT_STATUS
+from lots.models import Lot
 
 
 class Command(BaseCommand):

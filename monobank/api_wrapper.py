@@ -2,7 +2,6 @@ import datetime
 import logging
 
 import requests
-
 from rest_framework.exceptions import ValidationError
 
 
