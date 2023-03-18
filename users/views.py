@@ -1,17 +1,17 @@
 from rest_framework.decorators import action
-from rest_framework.permissions import AllowAny, DjangoModelPermissions, IsAuthenticated, IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet, ViewSet
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from mixins.views import ListCreateRetrieveUpdateMixin
+from mixins.views import ListCreateRetrieveUpdateMixin, DeleteMixin
 from users.models import User
-from users.permissions import AllPermissionsSeparately, AnyoneCanCreateOtherDepends
+from users.permissions import AnyoneCanCreateOtherDepends
 from users.serializers import UserSerializer
 
 
-class UserViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin):  # TODO: remove list all users
+class UserViewSet(GenericViewSet, ListCreateRetrieveUpdateMixin, DeleteMixin):  # TODO: remove list all users
     permission_classes = [AnyoneCanCreateOtherDepends]
 
     queryset = User.objects.all()

@@ -1,6 +1,9 @@
 from rest_framework.permissions import AllowAny, BasePermission, DjangoModelPermissions
 
 
+BASIC_PERMISSIONS = ("change_user",)  # granted on for any user on creation
+
+
 class AllPermissionsSeparately(DjangoModelPermissions):
     perms_map = {
         "GET": ["%(app_label)s.view_%(model_name)s"],

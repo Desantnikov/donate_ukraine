@@ -12,21 +12,14 @@ class UserSerializer(ModelSerializer):
 
     class Meta:
         model = User
-        fields = "__all__"
+        # TODO: don't show api token to user
+        fields = ("first_name", "last_name", "username", "email", "phone_number", "api_token", "lots")
 
     def create(self, validated_data):
         user_data = copy.copy(self.validated_data)
 
-        # TODO: assign groups instead of permissions
-        permissions = Permission.objects.filter(
-            codename__in=["change_user"],  # so user can add his monobank api key
-        ).values_list("id", flat=True)
-
         user = User.objects.create_user(**user_data)
-
-        # uncomment for testing - on prod newly created user has no permissions
-        # they should be granted manually after moderation
-        # user.user_permissions.add(*permissions)
+        user.set_basic_permissions()
 
         return user
 

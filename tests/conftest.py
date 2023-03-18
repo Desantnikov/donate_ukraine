@@ -5,16 +5,19 @@ from django.test.client import Client
 from django.urls import reverse
 
 from users.models import User
+from users.serializers import UserSerializer
 
 
 @pytest.fixture
 def test_user_data():
     return {
         "username": "test",
-        "password": "pass",
+        "password": "12345678",
         "email": "test@test.com",
         "phone_number": "1231231231",
         "api_token": "123testapitoken123",
+        "first_name": "John",
+        "last_name": "Doe",
     }
 
 
@@ -35,7 +38,27 @@ def admin_user_credentials(admin_user):
 
 @pytest.fixture
 def test_user_instance(test_user_data):
-    return User.objects.create(**test_user_data)
+    user = User.objects.create(**test_user_data)
+    user.set_password(test_user_data["password"])
+    user.set_basic_permissions()
+    user.save()
+    return user
+
+
+@pytest.fixture
+def client_with_jwt(test_user_data, test_user_instance):
+    client_with_jwt = Client()
+    auth_data = client_with_jwt.post(
+        path=reverse("login"),
+        data={
+            "username": test_user_instance.username,
+            "password": test_user_data["password"],
+        },
+    ).json()
+
+    client_with_jwt.defaults["HTTP_AUTHORIZATION"] = f'Bearer {auth_data["access"]}'
+
+    return client_with_jwt
 
 
 @pytest.fixture
