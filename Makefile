@@ -9,9 +9,6 @@ shell:
 superuser:
 	docker-compose exec donate_ukraine /code/manage.py createsuperuser  --username=root --password=12345678 --first_name=John --last_name=Doe --phone_number=+380667829374
 
-bash-superuser:
-	python /code/manage.py createsuperuser  --username=root --password=12345678 --first_name=John --last_name=Doe --phone_number=+380667829374
-
 migrations:
 	docker-compose exec donate_ukraine /code/manage.py makemigrations
 
