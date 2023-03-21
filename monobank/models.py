@@ -22,6 +22,7 @@ class MonobankJar(models.Model):
         return f"{MonobankApiWrapper.JAR_URL}/{self.send_id}"
 
     def update_data(self):
+        # TODO: add retry without api key in case of errors
         api_wrapper = MonobankApiWrapper(api_token=self.lot.creator.api_token)
 
         jar_data = api_wrapper.get_jar_by_send_id(send_id=self.send_id)

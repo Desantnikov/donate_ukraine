@@ -6,7 +6,7 @@ from rest_framework.serializers import ModelSerializer, SerializerMethodField
 from storage.models import LotImage
 
 
-class ImageSerializer(ModelSerializer):
+class ImageSerializer(ModelSerializer):  # TODO: CHange name since all files are used now
     file_type = SerializerMethodField()
 
     class Meta:

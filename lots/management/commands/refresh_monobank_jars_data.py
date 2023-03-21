@@ -36,8 +36,8 @@ class Command(BaseCommand):
         for lot in lots_to_update:
             try:
                 print(f"Updating lot: {lot}")
-                time.sleep(delay)
                 lot.monobank_jar.update_data()
+                time.sleep(delay)
             except Exception as e:
                 errors.append(e)
 

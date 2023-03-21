@@ -12,7 +12,7 @@ from users.permissions import BASIC_PERMISSIONS
 def test_create_user(client, test_user_data):
     initial_amount_of_users = User.objects.count()
 
-    with patch("monobank.api_wrapper.MonobankApiWrapper.fetch_user_info"):
+    with patch("monobank.services.MonobankApiService.fetch_user_info"):
         response = client.post(path=reverse("users-list"), data=test_user_data)
 
     assert response.status_code == 201
@@ -28,7 +28,7 @@ def test_create_user(client, test_user_data):
 
 @pytest.mark.django_db
 def test_created_user_has_basic_permissions(client, test_user_data):
-    with patch("monobank.api_wrapper.MonobankApiWrapper.fetch_user_info"):
+    with patch("monobank.services.MonobankApiService.fetch_user_info"):
         response = client.post(path=reverse("users-list"), data=test_user_data, content_type="application/json")
     assert response.status_code == 201
 
@@ -41,7 +41,7 @@ def test_created_user_has_basic_permissions(client, test_user_data):
 
 @pytest.mark.django_db
 def test_user_edit_data(client_with_jwt, test_user_data, updated_test_user_data):
-    with patch("monobank.api_wrapper.MonobankApiWrapper.fetch_user_info"):
+    with patch("monobank.services.MonobankApiService.fetch_user_info"):
         response = client_with_jwt.get(path=reverse("users-info"))
 
     assert response.status_code == 200
@@ -49,7 +49,7 @@ def test_user_edit_data(client_with_jwt, test_user_data, updated_test_user_data)
 
     user_id = User.objects.get(username=test_user_data["username"]).id
 
-    with patch("monobank.api_wrapper.MonobankApiWrapper.fetch_user_info"):
+    with patch("monobank.services.MonobankApiService.fetch_user_info"):
         client_with_jwt.patch(
             path=f"/users/{user_id}",
             data=updated_test_user_data,

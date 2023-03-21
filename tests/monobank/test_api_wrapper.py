@@ -10,9 +10,9 @@ def test_api_wrapper_fetch_user_info_and_statements(
     expected_user_info,
     expected_user_transactions,
 ):
-    with patch("monobank.api_wrapper.MonobankApiWrapper.fetch_user_info", lambda _: monobank_api_client_info_stub):
+    with patch("monobank.services.MonobankApiService.fetch_user_info", lambda _: monobank_api_client_info_stub):
         api_wrapper = MonobankApiWrapper(api_token=test_api_token)
-    assert api_wrapper.user_info == expected_user_info
+    assert api_wrapper.service.user_info == expected_user_info
 
     with patch("requests.Response.json", lambda _: monobank_api_client_statements_stub):
         jar_transactions = api_wrapper.fetch_jar_transactions_by_id("kKGVoZuHWzqVoZuH")

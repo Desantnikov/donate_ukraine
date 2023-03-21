@@ -26,9 +26,10 @@ class LotCreateSerializer(ModelSerializer):
         fields = ["name", "description", "winner_picking_type", "ending_date", "monobank_jar_link"]
 
     def validate(self, attrs):
-        # TODO: make request to mono api to check if sendId/api-key are real
-        if not self.context["request"].user.api_token:
-            raise ValidationError({"api_token": "to create a lot you have to set your monobank api-token"})
+        # # TODO: make request to mono api to check if sendId/api-key are real
+        # if not self.context["request"].user.api_token:
+        #     raise ValidationError({"api_token": "to create a lot you have to set your monobank api-token"})
+        # TODO: try to update data to check if jar url is valid
 
         # TODO: validate that end-date is not earlier than now
         return super().validate(attrs)
