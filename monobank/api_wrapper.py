@@ -30,7 +30,12 @@ class MonobankApiWrapper:
         return self.service.fetch_user_info()
 
     def fetch_jar_transactions_by_id(self, jar_id):
-        return self.service.fetch_jar_transactions_by_id(jar_id)
+        try:
+            return self.service.fetch_jar_transactions_by_id(jar_id)
+        except Exception as e:
+            self.logger.exception(f"Main monobank service failed with exception, trying reserve service", exc_info=e)
+            if self.reserve_service_present:
+                return self.reserve_service.fetch_jar_transactions_by_id(jar_id)
 
     def get_jar_by_send_id(self, send_id):
         try:

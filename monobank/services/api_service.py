@@ -13,11 +13,9 @@ class MonobankApiService:
     def __init__(self, api_token=None):
         self.logger = logging.getLogger(__name__)
 
-        if api_token is not None:
-            self.api_token = api_token
-            self.auth_headers = {"X-Token": self.api_token}
-            self.user_info = self.fetch_user_info()
-            return
+        self.api_token = api_token
+        self.auth_headers = {"X-Token": self.api_token}
+        self.user_info = self.fetch_user_info()
 
     def fetch_user_info(self):
         """
@@ -56,6 +54,9 @@ class MonobankApiService:
         # while in `send_id` we store like `NCJSIWBYSHD`
         filtered_jar = filter(lambda jar_data: send_id in jar_data["sendId"], jars)
         jar = next(filtered_jar, None)
+
+        if jar is None:
+            raise Exception("Jar with such sendId not found in user's data")
 
         return jar
 
