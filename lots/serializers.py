@@ -35,11 +35,12 @@ class LotCreateSerializer(ModelSerializer):
         return super().validate(attrs)
 
     def to_internal_value(self, data):
-        send_id = re.search(r"jar/\w{10}", data["monobank_jar_link"])
-        if send_id is None:
+        try:
+            send_id = re.search(r"(?P<send_id>jar/\w{10})", data["monobank_jar_link"]).group("send_id")
+        except IndexError:
             raise ValidationError({"monobank_jar_link": "Invalid - no sendId found"})
 
-        monobank_jar = MonobankJar(send_id=send_id.group())
+        monobank_jar = MonobankJar(send_id=send_id)
         monobank_jar.save()
 
         data = super().to_internal_value(data)
