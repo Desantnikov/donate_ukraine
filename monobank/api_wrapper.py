@@ -13,13 +13,18 @@ class MonobankApiWrapper:
 
     def __init__(self, api_token=None):
         self.logger = logging.getLogger(__name__)
-        print(f"\r\nHERE\r\n")
+
         if api_token:
             self.service = MonobankApiService(api_token=api_token)
+            self.reserve_service = MonobankHandlerService()
             return
 
-        print(f"\r\n\r\nNO TOKEN - USE HANDLER\r\n\r\n")
         self.service = MonobankHandlerService()
+        self.reserve_service = None
+
+    @property
+    def reserve_service_present(self):
+        return self.reserve_service is not None
 
     def fetch_user_info(self):
         return self.service.fetch_user_info()
@@ -28,4 +33,9 @@ class MonobankApiWrapper:
         return self.service.fetch_jar_transactions_by_id(jar_id)
 
     def get_jar_by_send_id(self, send_id):
-        return self.service.get_jar_by_send_id(send_id)
+        try:
+            return self.service.get_jar_by_send_id(send_id)
+        except Exception as e:
+            self.logger.exception(f"Main monobank service failed with exception, trying reserve service", exc_info=e)
+            if self.reserve_service_present:
+                return self.reserve_service.get_jar_by_send_id(send_id)
